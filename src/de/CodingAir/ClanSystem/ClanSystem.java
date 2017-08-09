@@ -109,7 +109,7 @@ public class ClanSystem extends JavaPlugin {
 					@Override
 					public void accept(Boolean connected) {
 						if(Options.BUNGEECORD.getBoolean()) log(" ");
-						
+
 						bungeeCordManager.onEnable(new Callback<Boolean>() {
 							@Override
 							public void accept(Boolean finished) {
@@ -118,30 +118,28 @@ public class ClanSystem extends JavaPlugin {
 								gameProfileManager.onEnable();
 								clanManager.load();
 								clanManager.startInviteChecker();
-								
+
 								ClanSystem.log(" ");
 								ClanSystem.log("BungeeCord: " + Options.BUNGEECORD.getBoolean());
 								ClanSystem.log("Economy: " + Options.ECONOMY_ENABLED.getBoolean());
 								ClanSystem.log("Taxes: " + (Options.ECONOMY_ENABLED.getBoolean() && Options.TAXES_ENABLED.getBoolean()));
 								ClanSystem.log(" ");
-								
+
 								ClanSystem.log("Starting AutoSaver.");
 								startAutoSaver();
-								
+
 								timer.stop();
-								
+
 								ClanSystem.log(" ");
 								ClanSystem.log("Done (" + timer.getLastStoppedTime() + "s)");
 								ClanSystem.log(" ");
 								ClanSystem.log("__________________________________________________________");
 								ClanSystem.log(" ");
-								
+
 								LayoutManager.onUpdate();
 								TaxManager.save();
 								bungeeCordManager.refactorData(null, false);
-								
-								API.getInstance().onEnable(ClanSystem.this);
-								
+
 								initialized = true;
 							}
 						});
