@@ -22,24 +22,24 @@ public class ClanWarsCMD implements CommandExecutor {
 		if(!ClanSystem.isInited()) return false;
 		
 		if(!(sender instanceof Player)) {
-			sender.sendMessage(LanguageManager.SUBPREFIX.getMessage() + LanguageManager.ONLY_FOR_PLAYERS.getMessage());
+			sender.sendMessage(LanguageManager.SUBPREFIX.getMessage(null) + LanguageManager.ONLY_FOR_PLAYERS.getMessage(null));
 			return false;
 		}
 		
 		Player p = (Player) sender;
 		
 		if(!ClanSystem.getInstance().getBungeeCordManager().isConnected() && Options.BUNGEECORD.getBoolean()) {
-			p.sendMessage(LanguageManager.PREFIX.getMessage() + LanguageManager.ERROR_COMMANDS_BLOCKED.getMessage());
+			p.sendMessage(LanguageManager.PREFIX.getMessage(p) + LanguageManager.ERROR_COMMANDS_BLOCKED.getMessage(p));
 			return false;
 		}
 		
 		if(!ClanSystem.isRegistered(p)) {
-			p.sendMessage(LanguageManager.PREFIX.getMessage() + LanguageManager.ERROR_PLAYER_NOT_REGISTERED.getMessage());
+			p.sendMessage(LanguageManager.PREFIX.getMessage(p) + LanguageManager.ERROR_PLAYER_NOT_REGISTERED.getMessage(p));
 			return false;
 		}
 		
 		if(!p.hasPermission("ClanSystem.ClanWars")) {
-			p.sendMessage(LanguageManager.PREFIX.getMessage() + LanguageManager.NO_PERMISSION.getMessage());
+			p.sendMessage(LanguageManager.PREFIX.getMessage(p) + LanguageManager.NO_PERMISSION.getMessage(p));
 			return false;
 		}
 		

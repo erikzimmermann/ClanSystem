@@ -55,8 +55,8 @@ public class AllianceListener implements Listener {
 		
 		if(target == null || clan == null) return;
 		
-		if(target.hasAllianceWith(clan)) d.sendMessage(LanguageManager.PREFIX.getMessage() + LanguageManager.ERROR_ALLIANCE_BETWEEN_CLANS.getMessage());
-		else if(target.equals(clan)) d.sendMessage(LanguageManager.PREFIX.getMessage() + LanguageManager.ERROR_SAME_CLAN.getMessage());
+		if(target.hasAllianceWith(clan)) d.sendMessage(LanguageManager.PREFIX.getMessage(d) + LanguageManager.ERROR_ALLIANCE_BETWEEN_CLANS.getMessage(d));
+		else if(target.equals(clan)) d.sendMessage(LanguageManager.PREFIX.getMessage(d) + LanguageManager.ERROR_SAME_CLAN.getMessage(d));
 		else return;
 		
 		e.setCancelled(true);

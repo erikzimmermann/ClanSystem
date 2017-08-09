@@ -7,13 +7,13 @@ import de.CodingAir.ClanSystem.Utils.BungeeCord.Request;
 import de.CodingAir.ClanSystem.Utils.BungeeCord.Update;
 import de.CodingAir.ClanSystem.Utils.Clan;
 import de.CodingAir.ClanSystem.Utils.Options;
-import de.CodingAir.v1_4.CodingAPI.BungeeCord.ProxiedPlayer;
-import de.CodingAir.v1_4.CodingAPI.BungeeCord.ProxyJoinEvent;
-import de.CodingAir.v1_4.CodingAPI.BungeeCord.ProxyQuitEvent;
-import de.CodingAir.v1_4.CodingAPI.Sockets.EchoClient;
-import de.CodingAir.v1_4.CodingAPI.Sockets.SocketMessenger;
-import de.CodingAir.v1_4.CodingAPI.Tools.Callback;
-import de.CodingAir.v1_4.CodingAPI.Utils.IReflection;
+import de.CodingAir.v1_6.CodingAPI.BungeeCord.ProxiedPlayer;
+import de.CodingAir.v1_6.CodingAPI.BungeeCord.ProxyJoinEvent;
+import de.CodingAir.v1_6.CodingAPI.BungeeCord.ProxyQuitEvent;
+import de.CodingAir.v1_6.CodingAPI.Server.Reflections.IReflection;
+import de.CodingAir.v1_6.CodingAPI.Sockets.EchoClient;
+import de.CodingAir.v1_6.CodingAPI.Sockets.SocketMessenger;
+import de.CodingAir.v1_6.CodingAPI.Tools.Callback;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -114,7 +114,7 @@ public class BungeeCordManager {
 									Player targetLeader = Bukkit.getPlayer(target.getLeader());
 									
 									if(targetLeader != null) {
-										String msg = LanguageManager.PREFIX.getMessage() + LanguageManager.CLAN_ALLIANCE_TARGET.getMessage().replace("%clan%", clan.getName());
+										String msg = LanguageManager.PREFIX.getMessage(null) + LanguageManager.CLAN_ALLIANCE_TARGET.getMessage(null).replace("%clan%", clan.getName());
 										
 										if(msg.contains("%yes%") && msg.contains("%/yes%") && msg.contains("%no%") && msg.contains("%/no%")) {
 											String yes = msg.split("%yes%")[1].split("%/yes%")[0];
@@ -123,12 +123,12 @@ public class BungeeCordManager {
 											TextComponent message = new TextComponent(msg.split("%yes%")[0]);
 											
 											TextComponent accept = new TextComponent(yes);
-											accept.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/clan " + LanguageManager.COMMANDS_ALLIANCE.getMessage() + " " + LanguageManager.COMMANDS_ACCEPT.getMessage() + " " + clan.getName()));
-											accept.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(LanguageManager.GUI_CLICK.getMessage()).create()));
+											accept.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/clan " + LanguageManager.COMMANDS_ALLIANCE.getMessage(null) + " " + LanguageManager.COMMANDS_ACCEPT.getMessage(null) + " " + clan.getName()));
+											accept.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(LanguageManager.GUI_CLICK.getMessage(null)).create()));
 											
 											TextComponent decline = new TextComponent(no);
-											decline.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/clan " + LanguageManager.COMMANDS_ALLIANCE.getMessage() + " " + LanguageManager.COMMANDS_DECLINE.getMessage() + " " + clan.getName()));
-											decline.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(LanguageManager.GUI_CLICK.getMessage()).create()));
+											decline.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/clan " + LanguageManager.COMMANDS_ALLIANCE.getMessage(null) + " " + LanguageManager.COMMANDS_DECLINE.getMessage(null) + " " + clan.getName()));
+											decline.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(LanguageManager.GUI_CLICK.getMessage(null)).create()));
 											
 											message.addExtra(accept);
 											message.addExtra(msg.split("%/yes%")[1].split("%no%")[0]);
@@ -141,7 +141,7 @@ public class BungeeCordManager {
 										}
 										
 										ClanSystem.getClanManager().alliance(clan, target);
-										clan.broadcast(LanguageManager.CLAN_PREFIX.getMessage().replace("%clan_color%", ClanSystem.getClanManager().getClanColor(clan.getClanRank())).replace("%clanname%", clan.getName()) + LanguageManager.CLAN_ALLIANCE_CLAN.getMessage().replace("%clan%", target.getName()));
+										clan.broadcast(LanguageManager.CLAN_PREFIX.getMessage(null).replace("%clan_color%", ClanSystem.getClanManager().getClanColor(clan.getClanRank())).replace("%clanname%", clan.getName()) + LanguageManager.CLAN_ALLIANCE_CLAN.getMessage(null).replace("%clan%", target.getName()));
 									}
 								}
 								
@@ -150,7 +150,7 @@ public class BungeeCordManager {
 								Player target = Bukkit.getPlayer(info.split(" ")[1]);
 								
 								if(clan != null && target != null) {
-									String msg = LanguageManager.PREFIX.getMessage() + LanguageManager.CLAN_PLAYER_INVITE.getMessage().replace("%clan%", clan.getName());
+									String msg = LanguageManager.PREFIX.getMessage(target) + LanguageManager.CLAN_PLAYER_INVITE.getMessage(target).replace("%clan%", clan.getName());
 									
 									if(msg.contains("%yes%") && msg.contains("%/yes%") && msg.contains("%no%") && msg.contains("%/no%")) {
 										String yes = msg.split("%yes%")[1].split("%/yes%")[0];
@@ -159,12 +159,12 @@ public class BungeeCordManager {
 										TextComponent message = new TextComponent(msg.split("%yes%")[0]);
 										
 										TextComponent accept = new TextComponent(yes);
-										accept.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/clan " + LanguageManager.COMMANDS_INVITE.getMessage() + " " + LanguageManager.COMMANDS_ACCEPT.getMessage() + " " + clan.getName()));
-										accept.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(LanguageManager.GUI_CLICK.getMessage()).create()));
+										accept.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/clan " + LanguageManager.COMMANDS_INVITE.getMessage(null) + " " + LanguageManager.COMMANDS_ACCEPT.getMessage(null) + " " + clan.getName()));
+										accept.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(LanguageManager.GUI_CLICK.getMessage(null)).create()));
 										
 										TextComponent decline = new TextComponent(no);
-										decline.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/clan " + LanguageManager.COMMANDS_INVITE.getMessage() + " " + LanguageManager.COMMANDS_DECLINE.getMessage() + " " + clan.getName()));
-										decline.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(LanguageManager.GUI_CLICK.getMessage()).create()));
+										decline.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/clan " + LanguageManager.COMMANDS_INVITE.getMessage(null) + " " + LanguageManager.COMMANDS_DECLINE.getMessage(null) + " " + clan.getName()));
+										decline.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(LanguageManager.GUI_CLICK.getMessage(null)).create()));
 										
 										message.addExtra(accept);
 										message.addExtra(msg.split("%/yes%")[1].split("%no%")[0]);
@@ -177,7 +177,7 @@ public class BungeeCordManager {
 									}
 									
 									ClanSystem.getClanManager().invite(clan, ClanSystem.getUUID(target));
-									clan.broadcast(LanguageManager.CLAN_PREFIX.getMessage().replace("%clan_color%", ClanSystem.getClanManager().getClanColor(clan.getClanRank())).replace("%clanname%", clan.getName()) + LanguageManager.CLAN_PLAYER_INVITE_NOTIFY.getMessage().replace("%player%", target.getName()));
+									clan.broadcast(LanguageManager.CLAN_PREFIX.getMessage(null).replace("%clan_color%", ClanSystem.getClanManager().getClanColor(clan.getClanRank())).replace("%clanname%", clan.getName()) + LanguageManager.CLAN_PLAYER_INVITE_NOTIFY.getMessage(null).replace("%player%", target.getName()));
 								}
 								
 							} else {

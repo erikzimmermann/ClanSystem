@@ -4,9 +4,9 @@ import de.CodingAir.ClanSystem.ClanSystem;
 import de.CodingAir.ClanSystem.Utils.Clan;
 import de.CodingAir.ClanSystem.Utils.ClanWars.Arena;
 import de.CodingAir.ClanSystem.Utils.ClanWars.ProxyArena;
-import de.CodingAir.v1_4.CodingAPI.Particles.Animations.Animation;
-import de.CodingAir.v1_4.CodingAPI.Particles.Animations.CircleAnimation;
-import de.CodingAir.v1_4.CodingAPI.Particles.Particle;
+import de.CodingAir.v1_6.CodingAPI.Particles.Animations.Animation;
+import de.CodingAir.v1_6.CodingAPI.Particles.Animations.CircleAnimation;
+import de.CodingAir.v1_6.CodingAPI.Particles.Particle;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

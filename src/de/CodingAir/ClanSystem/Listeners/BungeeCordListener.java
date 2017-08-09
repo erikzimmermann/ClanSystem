@@ -8,10 +8,10 @@ import de.CodingAir.ClanSystem.Utils.BungeeCord.Request;
 import de.CodingAir.ClanSystem.Utils.BungeeCord.Update;
 import de.CodingAir.ClanSystem.Utils.Clan;
 import de.CodingAir.ClanSystem.Utils.Options;
-import de.CodingAir.v1_4.CodingAPI.BungeeCord.ProxiedPlayer;
-import de.CodingAir.v1_4.CodingAPI.BungeeCord.ProxyJoinEvent;
-import de.CodingAir.v1_4.CodingAPI.BungeeCord.ProxyQuitEvent;
-import de.CodingAir.v1_4.CodingAPI.Tools.Callback;
+import de.CodingAir.v1_6.CodingAPI.BungeeCord.ProxiedPlayer;
+import de.CodingAir.v1_6.CodingAPI.BungeeCord.ProxyJoinEvent;
+import de.CodingAir.v1_6.CodingAPI.BungeeCord.ProxyQuitEvent;
+import de.CodingAir.v1_6.CodingAPI.Tools.Callback;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -32,7 +32,7 @@ public class BungeeCordListener implements Listener {
 		Player p = e.getPlayer();
 		
 		if(Options.BUNGEECORD.getBoolean() && !ClanSystem.getInstance().getBungeeCordManager().isConnected() && p.hasPermission("ClanSystem.Notify")) {
-			p.sendMessage(LanguageManager.PREFIX.getMessage() + LanguageManager.ERROR_CLIENT_NOT_CONNECTED.getMessage());
+			p.sendMessage(LanguageManager.PREFIX.getMessage(p) + LanguageManager.ERROR_CLIENT_NOT_CONNECTED.getMessage(p));
 		}
 		
 		Bukkit.getScheduler().runTaskAsynchronously(ClanSystem.getInstance(), new Runnable() {

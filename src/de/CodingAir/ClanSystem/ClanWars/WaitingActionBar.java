@@ -1,6 +1,6 @@
 package de.CodingAir.ClanSystem.ClanWars;
 
-import de.CodingAir.v1_4.CodingAPI.Player.MessageAPI;
+import de.CodingAir.v1_6.CodingAPI.Player.MessageAPI;
 import org.bukkit.entity.Player;
 
 /**

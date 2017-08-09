@@ -3,10 +3,10 @@ package de.CodingAir.ClanSystem.Managers;
 import com.mojang.authlib.GameProfile;
 import de.CodingAir.ClanSystem.ClanSystem;
 import de.CodingAir.ClanSystem.Utils.Profile;
-import de.CodingAir.v1_4.CodingAPI.Database.MySQL;
-import de.CodingAir.v1_4.CodingAPI.Database.QueryUpdate;
-import de.CodingAir.v1_4.CodingAPI.Player.Data.GameProfile.GameProfileUtils;
-import de.CodingAir.v1_4.CodingAPI.Tools.Callback;
+import de.CodingAir.v1_6.CodingAPI.Database.MySQL;
+import de.CodingAir.v1_6.CodingAPI.Database.QueryUpdate;
+import de.CodingAir.v1_6.CodingAPI.Player.Data.GameProfile.GameProfileUtils;
+import de.CodingAir.v1_6.CodingAPI.Tools.Callback;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

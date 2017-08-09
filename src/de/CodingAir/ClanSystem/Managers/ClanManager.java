@@ -1,13 +1,13 @@
 package de.CodingAir.ClanSystem.Managers;
 
 import de.CodingAir.ClanSystem.ClanSystem;
+import de.CodingAir.ClanSystem.Utils.BungeeCord.Update;
 import de.CodingAir.ClanSystem.Utils.Clan;
 import de.CodingAir.ClanSystem.Utils.Invite;
 import de.CodingAir.ClanSystem.Utils.Options;
-import de.CodingAir.ClanSystem.Utils.BungeeCord.Update;
-import de.CodingAir.v1_4.CodingAPI.Database.MySQL;
-import de.CodingAir.v1_4.CodingAPI.Database.QueryUpdate;
-import de.CodingAir.v1_4.CodingAPI.Tools.Callback;
+import de.CodingAir.v1_6.CodingAPI.Database.MySQL;
+import de.CodingAir.v1_6.CodingAPI.Database.QueryUpdate;
+import de.CodingAir.v1_6.CodingAPI.Tools.Callback;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -446,6 +446,6 @@ public class ClanManager {
 	}
 	
 	public static String getClanPrefix(Clan clan) {
-		return LanguageManager.CLAN_PREFIX.getMessage().replace("%clanname%", clan.getName()).replace("%clan_color%", ClanSystem.getClanManager().getClanColor(clan.getClanRank()));
+		return LanguageManager.CLAN_PREFIX.getMessage(null).replace("%clanname%", clan.getName()).replace("%clan_color%", ClanSystem.getClanManager().getClanColor(clan.getClanRank()));
 	}
 }

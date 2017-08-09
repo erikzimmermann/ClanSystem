@@ -214,15 +214,10 @@ public enum LanguageManager {
 		this.path = message;
 	}
 	
-	public String getMessage() {
-		String message = FileManager.LANGUAGE.getFile().getConfig().getString(FileManager.LANGUAGE.getFile().getConfig().getString("Current_Language", "English") + "." + path, null);
-		return (message == null) ? null : ChatColor.translateAlternateColorCodes('&', message);
-	}
-	
 	public String getMessage(Player p) {
 		String message = FileManager.LANGUAGE.getFile().getConfig().getString(FileManager.LANGUAGE.getFile().getConfig().getString("Current_Language", "English") + "." + path, null);
 		message =  (message == null) ? null : ChatColor.translateAlternateColorCodes('&', message);
-		return replacePlaceholders(p, message);
+		return p != null ? replacePlaceholders(p, message) : message;
 	}
 	
 	public List<String> getStringList() {

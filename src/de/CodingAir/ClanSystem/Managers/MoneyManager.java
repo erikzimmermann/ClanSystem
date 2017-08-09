@@ -12,9 +12,9 @@ public class MoneyManager {
 			return true;
 		} catch(Exception e) {
 			return false;
-		} finally {
-			return true;
 		}
+
+		return true;
 	}
 	
 }

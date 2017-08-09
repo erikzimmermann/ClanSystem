@@ -8,13 +8,13 @@ import de.CodingAir.ClanSystem.Listeners.*;
 import de.CodingAir.ClanSystem.Managers.*;
 import de.CodingAir.ClanSystem.Utils.Options;
 import de.CodingAir.ClanSystem.Utils.UpdateChecker;
-import de.CodingAir.v1_4.CodingAPI.API;
-import de.CodingAir.v1_4.CodingAPI.Database.MySQL;
-import de.CodingAir.v1_4.CodingAPI.Database.Table;
-import de.CodingAir.v1_4.CodingAPI.Server.Version;
-import de.CodingAir.v1_4.CodingAPI.Time.Timer;
-import de.CodingAir.v1_4.CodingAPI.Tools.Callback;
-import de.CodingAir.v1_4.CodingAPI.Tools.ItemBuilder;
+import de.CodingAir.v1_6.CodingAPI.API;
+import de.CodingAir.v1_6.CodingAPI.Database.MySQL;
+import de.CodingAir.v1_6.CodingAPI.Database.Table;
+import de.CodingAir.v1_6.CodingAPI.Server.Version;
+import de.CodingAir.v1_6.CodingAPI.Time.Timer;
+import de.CodingAir.v1_6.CodingAPI.Tools.Callback;
+import de.CodingAir.v1_6.CodingAPI.Tools.OldItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -33,7 +33,7 @@ public class ClanSystem extends JavaPlugin {
 	public static String SERVER = null;
 	
 	public static ItemStack MAIN_ICON() {
-		return ItemBuilder.removeStandardLore(ItemBuilder.getItem(Material.IRON_SWORD, "§cClanname")).clone();
+		return OldItemBuilder.removeStandardLore(OldItemBuilder.getItem(Material.IRON_SWORD, "§cClanname")).clone();
 	}
 	
 	private static ClanSystem instance;

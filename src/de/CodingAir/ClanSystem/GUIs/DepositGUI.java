@@ -4,16 +4,19 @@ import de.CodingAir.ClanSystem.ClanSystem;
 import de.CodingAir.ClanSystem.Managers.EconomyManager;
 import de.CodingAir.ClanSystem.Managers.LanguageManager;
 import de.CodingAir.ClanSystem.Utils.Clan;
-import de.CodingAir.v1_4.CodingAPI.Player.GUI.Inventory.Interface.Interface;
-import de.CodingAir.v1_4.CodingAPI.Player.GUI.Inventory.Interface.InterfaceListener;
-import de.CodingAir.v1_4.CodingAPI.Player.GUI.Inventory.Interface.ItemButton.ItemButton;
-import de.CodingAir.v1_4.CodingAPI.Server.Environment;
-import de.CodingAir.v1_4.CodingAPI.Server.Sound;
-import de.CodingAir.v1_4.CodingAPI.Tools.ItemBuilder;
+import de.CodingAir.v1_6.CodingAPI.Player.GUI.Inventory.Interface.Interface;
+import de.CodingAir.v1_6.CodingAPI.Player.GUI.Inventory.Interface.InterfaceListener;
+import de.CodingAir.v1_6.CodingAPI.Player.GUI.Inventory.Interface.ItemButton.ItemButton;
+import de.CodingAir.v1_6.CodingAPI.Server.Environment;
+import de.CodingAir.v1_6.CodingAPI.Server.Sound;
+import de.CodingAir.v1_6.CodingAPI.Tools.OldItemBuilder;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.*;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
@@ -24,7 +27,7 @@ public class DepositGUI {
 		Clan clan = ClanSystem.getClanManager().getClan(p);
 		if(clan == null) return;
 		
-		Interface inv = new Interface(p, "§cClan §7- §c" + LanguageManager.COMMANDS_DEPOSIT.getMessage(), 54, ClanSystem.getInstance());
+		Interface inv = new Interface(p, "§cClan §7- §c" + LanguageManager.COMMANDS_DEPOSIT.getMessage(p), 54, ClanSystem.getInstance());
 		inv.setEditableItems(true);
 		
 		inv.addListener(new InterfaceListener() {
@@ -58,16 +61,16 @@ public class DepositGUI {
 		});
 		
 		ItemStack[] forSale = new ItemStack[6];
-		forSale[0] = ItemBuilder.getItem(Material.COAL, "§3" + LanguageManager.GUI_PRICE.getMessage() + "§8: §b" + EconomyManager.SellItem.COAL.getPrice() + LanguageManager.GUI_CURRENCY.getMessage());
-		forSale[1] = ItemBuilder.getItem(Material.WOOD, "§3" + LanguageManager.GUI_PRICE.getMessage() + "§8: §b" + EconomyManager.SellItem.WOOD.getPrice() + LanguageManager.GUI_CURRENCY.getMessage());
-		forSale[2] = ItemBuilder.getItem(Material.IRON_INGOT, "§3" + LanguageManager.GUI_PRICE.getMessage() + "§8: §b" + EconomyManager.SellItem.IRON.getPrice() + LanguageManager.GUI_CURRENCY.getMessage());
-		forSale[3] = ItemBuilder.getItem(Material.GOLD_INGOT, "§3" + LanguageManager.GUI_PRICE.getMessage() + "§8: §b" + EconomyManager.SellItem.GOLD.getPrice() + LanguageManager.GUI_CURRENCY.getMessage());
-		forSale[4] = ItemBuilder.getItem(Material.DIAMOND, "§3" + LanguageManager.GUI_PRICE.getMessage() + "§8: §b" + EconomyManager.SellItem.DIAMOND.getPrice() + LanguageManager.GUI_CURRENCY.getMessage());
-		forSale[5] = ItemBuilder.getItem(Material.EMERALD, "§3" + LanguageManager.GUI_PRICE.getMessage() + "§8: §b" + EconomyManager.SellItem.EMERALD.getPrice() + LanguageManager.GUI_CURRENCY.getMessage());
+		forSale[0] = OldItemBuilder.getItem(Material.COAL, "§3" + LanguageManager.GUI_PRICE.getMessage(p) + "§8: §b" + EconomyManager.SellItem.COAL.getPrice() + LanguageManager.GUI_CURRENCY.getMessage(p));
+		forSale[1] = OldItemBuilder.getItem(Material.WOOD, "§3" + LanguageManager.GUI_PRICE.getMessage(p) + "§8: §b" + EconomyManager.SellItem.WOOD.getPrice() + LanguageManager.GUI_CURRENCY.getMessage(p));
+		forSale[2] = OldItemBuilder.getItem(Material.IRON_INGOT, "§3" + LanguageManager.GUI_PRICE.getMessage(p) + "§8: §b" + EconomyManager.SellItem.IRON.getPrice() + LanguageManager.GUI_CURRENCY.getMessage(p));
+		forSale[3] = OldItemBuilder.getItem(Material.GOLD_INGOT, "§3" + LanguageManager.GUI_PRICE.getMessage(p) + "§8: §b" + EconomyManager.SellItem.GOLD.getPrice() + LanguageManager.GUI_CURRENCY.getMessage(p));
+		forSale[4] = OldItemBuilder.getItem(Material.DIAMOND, "§3" + LanguageManager.GUI_PRICE.getMessage(p) + "§8: §b" + EconomyManager.SellItem.DIAMOND.getPrice() + LanguageManager.GUI_CURRENCY.getMessage(p));
+		forSale[5] = OldItemBuilder.getItem(Material.EMERALD, "§3" + LanguageManager.GUI_PRICE.getMessage(p) + "§8: §b" + EconomyManager.SellItem.EMERALD.getPrice() + LanguageManager.GUI_CURRENCY.getMessage(p));
 		
-		ItemStack level = ItemBuilder.setLore(ItemBuilder.getItem(Material.EXP_BOTTLE, "§3" + LanguageManager.GUI_LEVEL.getMessage() + "§8: §b0"), "", LanguageManager.GUI_DEPOSIT_LEFT_CLICK_LEVEL.getMessage(), LanguageManager.GUI_DEPOSIT_RIGHT_CLICK_LEVEL.getMessage());
+		ItemStack level = OldItemBuilder.setLore(OldItemBuilder.getItem(Material.EXP_BOTTLE, "§3" + LanguageManager.GUI_LEVEL.getMessage(p) + "§8: §b0"), "", LanguageManager.GUI_DEPOSIT_LEFT_CLICK_LEVEL.getMessage(p), LanguageManager.GUI_DEPOSIT_RIGHT_CLICK_LEVEL.getMessage(p));
 		
-		ItemStack pane = ItemBuilder.getColored(Material.STAINED_GLASS_PANE, "§0", DyeColor.BLACK);
+		ItemStack pane = OldItemBuilder.getColored(Material.STAINED_GLASS_PANE, "§0", DyeColor.BLACK);
 		
 		inv.setItem(0, forSale[0]);
 		inv.setItem(1, forSale[1]);
@@ -79,7 +82,7 @@ public class DepositGUI {
 		inv.addButton(new ItemButton(5, level) {
 			@Override
 			public void onClick(InventoryClickEvent e) {
-				String name = "§3" + LanguageManager.GUI_LEVEL.getMessage() + "§8: §b";
+				String name = "§3" + LanguageManager.GUI_LEVEL.getMessage(p) + "§8: §b";
 				int level = Integer.parseInt(this.getItem().getItemMeta().getDisplayName().replace(name, ""));
 				
 				if(e.isLeftClick()) {
@@ -87,20 +90,20 @@ public class DepositGUI {
 				} else if(e.isRightClick()) {
 					if(p.getLevel() > level) level++;
 					else
-						p.sendMessage(LanguageManager.PREFIX.getMessage() + LanguageManager.ERROR_NOT_ENOUGH_LEVEL.getMessage());
+						p.sendMessage(LanguageManager.PREFIX.getMessage(p) + LanguageManager.ERROR_NOT_ENOUGH_LEVEL.getMessage(p));
 				}
 				
-				this.setItem(ItemBuilder.setDisplayName(this.getItem(), name + level));
+				this.setItem(OldItemBuilder.setDisplayName(this.getItem(), name + level));
 			}
 		}.setClickSound(Sound.CLICK.bukkitSound()));
 		
-		inv.addButton(new ItemButton(8, ItemBuilder.getColored(Material.WOOL, "§c" + LanguageManager.GUI_CANCEL.getMessage(), DyeColor.RED)) {
+		inv.addButton(new ItemButton(8, OldItemBuilder.getColored(Material.WOOL, "§c" + LanguageManager.GUI_CANCEL.getMessage(p), DyeColor.RED)) {
 			@Override
 			public void onClick(InventoryClickEvent e) {
 			}
 		}.setClickSound(Sound.ITEM_BREAK.bukkitSound()).setCloseOnClick(true));
 		
-		inv.addButton(new ItemButton(17, ItemBuilder.getColored(Material.WOOL, "§a" + LanguageManager.COMMANDS_DEPOSIT.getMessage(), DyeColor.LIME)) {
+		inv.addButton(new ItemButton(17, OldItemBuilder.getColored(Material.WOOL, "§a" + LanguageManager.COMMANDS_DEPOSIT.getMessage(p), DyeColor.LIME)) {
 			@Override
 			public void onClick(InventoryClickEvent e) {
 				List<ItemStack> items = inv.getItemsFromRow(3);
@@ -116,14 +119,14 @@ public class DepositGUI {
 					}
 				}
 				
-				String name = "§3" + LanguageManager.GUI_LEVEL.getMessage() + "§8: §b";
+				String name = "§3" + LanguageManager.GUI_LEVEL.getMessage(p) + "§8: §b";
 				int level = Integer.parseInt(inv.getItem(5).getItemMeta().getDisplayName().replace(name, ""));
 				amount += level * EconomyManager.SellItem.LEVEL.getPrice();
 				p.setLevel(p.getLevel() - level);
 				
 				if(amount != 0) {
 					clan.setBalance(clan.getBalance() + amount);
-					clan.broadcast(LanguageManager.CLAN_PREFIX.getMessage().replace("%clanname%", clan.getName()).replace("%clan_color%", ClanSystem.getClanManager().getClanColor(clan.getClanRank())) + LanguageManager.SUCCESS_PLAYER_DEPOSIT.getMessage().replace("%player%", p.getName()).replace("%amount%", amount + ""));
+					clan.broadcast(LanguageManager.CLAN_PREFIX.getMessage(p).replace("%clanname%", clan.getName()).replace("%clan_color%", ClanSystem.getClanManager().getClanColor(clan.getClanRank())) + LanguageManager.SUCCESS_PLAYER_DEPOSIT.getMessage(p).replace("%player%", p.getName()).replace("%amount%", amount + ""));
 				}
 				
 				p.closeInventory();

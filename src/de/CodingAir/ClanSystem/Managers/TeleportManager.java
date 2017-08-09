@@ -3,7 +3,7 @@ package de.CodingAir.ClanSystem.Managers;
 import de.CodingAir.ClanSystem.ClanSystem;
 import de.CodingAir.ClanSystem.Utils.Options;
 import de.CodingAir.ClanSystem.Utils.Teleport;
-import de.CodingAir.v1_4.CodingAPI.Server.Sound;
+import de.CodingAir.v1_6.CodingAPI.Server.Sound;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -34,7 +34,7 @@ public class TeleportManager implements Listener {
 		Teleport teleport = new Teleport(p, loc, time, canMove);
 		teleporting.put(p.getUniqueId().toString(), teleport);
 		
-		p.sendMessage(LanguageManager.PREFIX.getMessage() + LanguageManager.SUCCESS_TELEPORT_TO_BASE.getMessage().replace("%seconds%", time+""));
+		p.sendMessage(LanguageManager.PREFIX.getMessage(p) + LanguageManager.SUCCESS_TELEPORT_TO_BASE.getMessage(p).replace("%seconds%", time+""));
 		
 		startScheduler();
 	}
@@ -118,7 +118,7 @@ public class TeleportManager implements Listener {
 			//Cancel
 			teleporting.remove(p.getUniqueId().toString());
 			p.playSound(p.getLocation(), Sound.ITEM_BREAK.bukkitSound(), 1F, 1F);
-			p.sendMessage(LanguageManager.PREFIX.getMessage() + LanguageManager.ERROR_TELEPORT_CANCELED.getMessage());
+			p.sendMessage(LanguageManager.PREFIX.getMessage(p) + LanguageManager.ERROR_TELEPORT_CANCELED.getMessage(p));
 		}
 		
 	}

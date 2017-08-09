@@ -52,20 +52,20 @@ public class ChatListener implements Listener {
 			}
 		}
 		
-		if(clan == null || !e.getMessage().startsWith(LanguageManager.COMMANDS_CLAN_CHAT.getMessage())) return;
+		if(clan == null || !e.getMessage().startsWith(LanguageManager.COMMANDS_CLAN_CHAT.getMessage(null))) return;
 		e.setCancelled(true);
 		
 		if(!clan.isChat()) {
-			p.sendMessage(LanguageManager.PREFIX.getMessage() + LanguageManager.ERROR_CHAT_IS_NOT_ENABLED.getMessage());
+			p.sendMessage(LanguageManager.PREFIX.getMessage(null) + LanguageManager.ERROR_CHAT_IS_NOT_ENABLED.getMessage(null));
 			return;
 		}
 		
 		
 		String msg = e.getMessage();
-		msg = msg.replaceFirst(LanguageManager.COMMANDS_CLAN_CHAT.getMessage(), "");
+		msg = msg.replaceFirst(LanguageManager.COMMANDS_CLAN_CHAT.getMessage(null), "");
 		
 		if(msg.length() == 0) {
-			p.sendMessage(LanguageManager.PREFIX.getMessage() + LanguageManager.HELP_CLAN_CHAT.getMessage());
+			p.sendMessage(LanguageManager.PREFIX.getMessage(p) + LanguageManager.HELP_CLAN_CHAT.getMessage(p));
 			return;
 		}
 		

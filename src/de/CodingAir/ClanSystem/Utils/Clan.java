@@ -3,9 +3,9 @@ package de.CodingAir.ClanSystem.Utils;
 import de.CodingAir.ClanSystem.ClanSystem;
 import de.CodingAir.ClanSystem.Managers.LayoutManager;
 import de.CodingAir.ClanSystem.Utils.BungeeCord.Update;
-import de.CodingAir.v1_4.CodingAPI.BungeeCord.ProxiedPlayer;
-import de.CodingAir.v1_4.CodingAPI.Tools.ItemBuilder;
-import de.CodingAir.v1_4.CodingAPI.Tools.Location;
+import de.CodingAir.v1_6.CodingAPI.BungeeCord.ProxiedPlayer;
+import de.CodingAir.v1_6.CodingAPI.Tools.Location;
+import de.CodingAir.v1_6.CodingAPI.Tools.OldItemBuilder;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.json.simple.JSONObject;
@@ -64,7 +64,7 @@ public class Clan {
 		this.trusted = this.stringToMap((String) json.get("Trusted"));
 		this.members = this.stringToMap((String) json.get("Members"));
 		this.base = (json.get("Base") != null ? Location.getByJSONString((String) json.get("Base")) : null);
-		this.icon = (json.get("Icon") != null ? ItemBuilder.translateSimple((String) json.get("Icon")) : null);
+		this.icon = (json.get("Icon") != null ? OldItemBuilder.translateSimple((String) json.get("Icon")) : null);
 		this.homeServer = (json.get("HomeServer") != null ? (String) json.get("HomeServer") : null);
 		
 		try {
@@ -251,7 +251,7 @@ public class Clan {
 		json.put("Trusted", this.mapToString(this.trusted));
 		json.put("Members", this.mapToString(this.members));
 		json.put("Base", (this.base == null ? null : base.toJSONString()));
-		json.put("Icon", (this.icon == null ? null : ItemBuilder.translateSimple(icon)));
+		json.put("Icon", (this.icon == null ? null : OldItemBuilder.translateSimple(icon)));
 		json.put("HomeServer", this.homeServer);
 		
 		return json;
@@ -537,9 +537,9 @@ public class Clan {
 		if(this.icon == null) return null;
 		ItemStack icon = this.icon.clone();
 		
-		icon = ItemBuilder.getItem(icon.getType(), (icon.getMaxStackSize() > 1 ? icon.getDurability() : 0));
-		icon = ItemBuilder.removeEnchantLore(icon);
-		icon = ItemBuilder.removeStandardLore(icon);
+		icon = OldItemBuilder.getItem(icon.getType(), (icon.getMaxStackSize() > 1 ? icon.getDurability() : 0));
+		icon = OldItemBuilder.removeEnchantLore(icon);
+		icon = OldItemBuilder.removeStandardLore(icon);
 		
 		return icon;
 	}

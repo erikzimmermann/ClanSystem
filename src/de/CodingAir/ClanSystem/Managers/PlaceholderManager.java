@@ -1,6 +1,6 @@
 package de.CodingAir.ClanSystem.Managers;
 
-import de.CodingAir.ClanSystem.Placeholder.Placeholders.Hooker;
+import de.CodingAir.ClanSystem.Placeholders.Hooker;
 import org.bukkit.Bukkit;
 
 /**

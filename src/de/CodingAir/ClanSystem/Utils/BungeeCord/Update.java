@@ -1,6 +1,6 @@
 package de.CodingAir.ClanSystem.Utils.BungeeCord;
 
-import de.CodingAir.v1_4.CodingAPI.Tools.ItemBuilder;
+import de.CodingAir.v1_6.CodingAPI.Tools.OldItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -24,8 +24,8 @@ public class Update {
 			if(this.equals(MAP)) return Update.stringToMap(code);
 			if(this.equals(LIST)) return Update.stringToList(code);
 			if(this.equals(LOCATION)) return Update.stringToLoc(code);
-			if(this.equals(CUSTOM_LOCATION)) return de.CodingAir.v1_4.CodingAPI.Tools.Location.getByJSONString(code);
-			if(this.equals(ITEMSTACK)) return ItemBuilder.translateSimple(code);
+			if(this.equals(CUSTOM_LOCATION)) return de.CodingAir.v1_6.CodingAPI.Tools.Location.getByJSONString(code);
+			if(this.equals(ITEMSTACK)) return OldItemBuilder.translateSimple(code);
 			return null;
 		}
 		
@@ -36,8 +36,8 @@ public class Update {
 			if(this.equals(MAP)) return Update.mapToString((HashMap<String, String>) code);
 			if(this.equals(LIST)) return Update.listToString((List<String>) code);
 			if(this.equals(LOCATION)) return Update.locToString((Location) code);
-			if(this.equals(CUSTOM_LOCATION)) return ((de.CodingAir.v1_4.CodingAPI.Tools.Location) code).toJSONString();
-			if(this.equals(ITEMSTACK)) return ItemBuilder.translateSimple((ItemStack) code);
+			if(this.equals(CUSTOM_LOCATION)) return ((de.CodingAir.v1_6.CodingAPI.Tools.Location) code).toJSONString();
+			if(this.equals(ITEMSTACK)) return OldItemBuilder.translateSimple((ItemStack) code);
 			return null;
 		}
 	}

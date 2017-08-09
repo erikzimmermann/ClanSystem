@@ -1,7 +1,7 @@
 package de.CodingAir.ClanSystem.Utils.ClanWars;
 
 import de.CodingAir.ClanSystem.Utils.Clan;
-import de.CodingAir.v1_4.CodingAPI.Tools.Location;
+import de.CodingAir.v1_6.CodingAPI.Tools.Location;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;

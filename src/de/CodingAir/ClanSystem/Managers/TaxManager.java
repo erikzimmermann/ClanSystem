@@ -3,7 +3,7 @@ package de.CodingAir.ClanSystem.Managers;
 import de.CodingAir.ClanSystem.ClanSystem;
 import de.CodingAir.ClanSystem.Utils.Clan;
 import de.CodingAir.ClanSystem.Utils.Options;
-import de.CodingAir.v1_4.CodingAPI.Time.TimeFetcher;
+import de.CodingAir.v1_6.CodingAPI.Time.TimeFetcher;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.ArrayList;
@@ -54,12 +54,12 @@ public class TaxManager {
 			int taxes = Options.TAXES_PER_MEMBER.getInt() * clan.getSize();
 			
 			if(clan.getBalance() < taxes) {
-				clan.broadcast(ClanManager.getClanPrefix(clan)+ LanguageManager.CLAN_TAXES_COLLECT_FAILURE.getMessage());
+				clan.broadcast(ClanManager.getClanPrefix(clan)+ LanguageManager.CLAN_TAXES_COLLECT_FAILURE.getMessage(null));
 				ClanSystem.getClanManager().removeClan(clan);
 				LayoutManager.onUpdate();
 			} else {
 				clan.setBalance(clan.getBalance() - taxes);
-				clan.broadcast(ClanManager.getClanPrefix(clan)+ LanguageManager.CLAN_TAXES_COLLECT.getMessage().replace("%amount%", taxes+""));
+				clan.broadcast(ClanManager.getClanPrefix(clan)+ LanguageManager.CLAN_TAXES_COLLECT.getMessage(null).replace("%amount%", taxes+""));
 			}
 		});
 	}

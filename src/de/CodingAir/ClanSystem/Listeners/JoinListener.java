@@ -27,7 +27,7 @@ public class JoinListener implements Listener{
 		if(ClanSystem.updateAvailable){
 			p.sendMessage("");
 			p.sendMessage("");
-			p.sendMessage(LanguageManager.PREFIX.getMessage()+"§aA new update is available §8[§bv"+ClanSystem.getInstance().getUpdateChecker().getVersion()+"§8]§a. Download it on §b§nhttps://www.spigotmc.org/resources/clansystem-full-gui-commands.34696/history");
+			p.sendMessage(LanguageManager.PREFIX.getMessage(p)+"§aA new update is available §8[§bv"+ClanSystem.getInstance().getUpdateChecker().getVersion()+"§8]§a. Download it on §b§nhttps://www.spigotmc.org/resources/clansystem-full-gui-commands.34696/history");
 			p.sendMessage("");
 			p.sendMessage("");
 		}
@@ -39,7 +39,7 @@ public class JoinListener implements Listener{
 				if(ClanSystem.updateAvailable){
 					p.sendMessage("");
 					p.sendMessage("");
-					p.sendMessage(LanguageManager.PREFIX.getMessage()+"§aA new update is available §8[§bv"+ClanSystem.getInstance().getUpdateChecker().getVersion()+"§8]§a. Download it on §b§nhttps://www.spigotmc.org/resources/clansystem-full-gui-commands.34696/history");
+					p.sendMessage(LanguageManager.PREFIX.getMessage(p)+"§aA new update is available §8[§bv"+ClanSystem.getInstance().getUpdateChecker().getVersion()+"§8]§a. Download it on §b§nhttps://www.spigotmc.org/resources/clansystem-full-gui-commands.34696/history");
 					p.sendMessage("");
 					p.sendMessage("");
 				}
