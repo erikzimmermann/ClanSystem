@@ -1,7 +1,7 @@
 Clan-System | Full GUI + Commands
 =======
 Tested Minecraft Versions:
-1.8 1.9 1.10 1.11
+1.7 1.8 1.9 1.10 1.11 1.12
 
 [This project on Spigotmc.org](https://www.spigotmc.org/resources/34696/)
 
