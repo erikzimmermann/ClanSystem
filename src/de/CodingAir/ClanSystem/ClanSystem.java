@@ -52,6 +52,7 @@ public class ClanSystem extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		instance = this;
+		API.getInstance().onEnable(this);
 		
 		this.getLogger().log(Level.INFO, "Startup at post activation.");
 		
