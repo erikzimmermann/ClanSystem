@@ -27,19 +27,24 @@ public class AllianceListener implements Listener {
 				projectile = e.getDamager();
 				
 				try {
-					org.bukkit.craftbukkit.v1_11_R1.entity.CraftArrow arrow = (org.bukkit.craftbukkit.v1_11_R1.entity.CraftArrow) damager;
+					org.bukkit.craftbukkit.v1_12_R1.entity.CraftArrow arrow = (org.bukkit.craftbukkit.v1_12_R1.entity.CraftArrow) damager;
 					if(arrow.getShooter() instanceof Player) d = (Player) arrow.getShooter();
 				} catch(NoClassDefFoundError ex) {
 					try {
-						org.bukkit.craftbukkit.v1_10_R1.entity.CraftArrow arrow = (org.bukkit.craftbukkit.v1_10_R1.entity.CraftArrow) damager;
-						if(arrow.getShooter() instanceof Player) d = (Player) arrow.getShooter();
-					} catch(NoClassDefFoundError ex1) {
+						org.bukkit.craftbukkit.v1_11_R1.entity.CraftArrow arrow = (org.bukkit.craftbukkit.v1_11_R1.entity.CraftArrow) damager;
+						if (arrow.getShooter() instanceof Player) d = (Player) arrow.getShooter();
+					} catch (NoClassDefFoundError ex0) {
 						try {
-							org.bukkit.craftbukkit.v1_9_R1.entity.CraftArrow arrow = (org.bukkit.craftbukkit.v1_9_R1.entity.CraftArrow) damager;
-							if(arrow.getShooter() instanceof Player) d = (Player) arrow.getShooter();
-						} catch(NoClassDefFoundError ex2) {
-							org.bukkit.craftbukkit.v1_8_R3.entity.CraftArrow arrow = (org.bukkit.craftbukkit.v1_8_R3.entity.CraftArrow) damager;
-							if(arrow.getShooter() instanceof Player) d = (Player) arrow.getShooter();
+							org.bukkit.craftbukkit.v1_10_R1.entity.CraftArrow arrow = (org.bukkit.craftbukkit.v1_10_R1.entity.CraftArrow) damager;
+							if (arrow.getShooter() instanceof Player) d = (Player) arrow.getShooter();
+						} catch (NoClassDefFoundError ex1) {
+							try {
+								org.bukkit.craftbukkit.v1_9_R1.entity.CraftArrow arrow = (org.bukkit.craftbukkit.v1_9_R1.entity.CraftArrow) damager;
+								if (arrow.getShooter() instanceof Player) d = (Player) arrow.getShooter();
+							} catch (NoClassDefFoundError ex2) {
+								org.bukkit.craftbukkit.v1_8_R3.entity.CraftArrow arrow = (org.bukkit.craftbukkit.v1_8_R3.entity.CraftArrow) damager;
+								if (arrow.getShooter() instanceof Player) d = (Player) arrow.getShooter();
+							}
 						}
 					}
 				}
