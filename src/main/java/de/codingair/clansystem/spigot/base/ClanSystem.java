@@ -1,6 +1,7 @@
 package de.codingair.clansystem.spigot.base;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import de.codingair.codingapi.API;
 
 public class ClanSystem extends JavaPlugin {
     private static ClanSystem instance;
@@ -8,6 +9,7 @@ public class ClanSystem extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        API.getInstance().onEnable(this);
     }
 
     @Override
