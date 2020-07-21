@@ -4,4 +4,4 @@ version: '2.0.0'
 description: A BungeeCord wide ClanSystem
 main: de.codingair.clansystem.spigot.base.ClanSystem
 softdepend: [Multiverse-Core, Vault, Essentials, MultiWorld, PlaceholderAPI, PlayerPoints, GemsEconomy]
-api-version: "1.13"
+api-version: "1.16"
