@@ -98,7 +98,7 @@
                     <!-- MainClass in mainfest make a executable jar -->
                     <archive>
                         <manifest>
-                            <mainClass>de.codingair.clansystem.spigot.base.ClanSystem</mainClass>
+                            <mainClass>de.codingair.clansystem.spigot.ClanSystem</mainClass>
                         </manifest>
                     </archive>
 

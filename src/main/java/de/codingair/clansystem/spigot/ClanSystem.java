@@ -1,4 +1,4 @@
-package de.codingair.clansystem.spigot.base;
+package de.codingair.clansystem.spigot;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import de.codingair.codingapi.API;
