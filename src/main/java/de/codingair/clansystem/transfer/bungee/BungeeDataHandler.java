@@ -1,5 +1,6 @@
 package de.codingair.clansystem.transfer.bungee;
 
+import de.codingair.clansystem.bungee.ClanSystem;
 import de.codingair.clansystem.transfer.DataHandler;
 import de.codingair.clansystem.transfer.PacketListener;
 import de.codingair.clansystem.transfer.packets.PacketType;
@@ -30,14 +31,14 @@ public class BungeeDataHandler implements DataHandler {
 
     @Override
     public void onEnable() {
-        BungeeCord.getInstance().getPluginManager().registerListener(this.plugin, this.listener);
-        BungeeCord.getInstance().registerChannel(GET_CHANNEL);
+        ClanSystem.proxy().getPluginManager().registerListener(this.plugin, this.listener);
+        ClanSystem.proxy().registerChannel(GET_CHANNEL);
     }
 
     @Override
     public void onDisable() {
-        BungeeCord.getInstance().getPluginManager().unregisterListener(this.listener);
-        BungeeCord.getInstance().unregisterChannel(GET_CHANNEL);
+        ClanSystem.proxy().getPluginManager().unregisterListener(this.listener);
+        ClanSystem.proxy().unregisterChannel(GET_CHANNEL);
         this.listeners.clear();
     }
 

@@ -1,5 +1,6 @@
 package de.codingair.clansystem.transfer.bungee;
 
+import de.codingair.clansystem.bungee.ClanSystem;
 import de.codingair.clansystem.transfer.DataHandler;
 import de.codingair.clansystem.transfer.packets.PacketType;
 import de.codingair.clansystem.transfer.packets.utils.Packet;
@@ -23,7 +24,7 @@ public class ChannelListener implements Listener {
     public void onPluginMessage(PluginMessageEvent e) {
         if(e.getTag().equals("BungeeCord")) {
 
-            ServerInfo server = BungeeCord.getInstance().getPlayer(e.getReceiver().toString()).getServer().getInfo();
+            ServerInfo server = ClanSystem.proxy().getPlayer(e.getReceiver().toString()).getServer().getInfo();
             DataInputStream in = new DataInputStream(new ByteArrayInputStream(e.getData()));
 
             try {
