@@ -2,6 +2,6 @@ name: ClanSystem
 authors: [CodingAir, dor_sax]
 version: "${project.version}"
 description: "A BungeeCord wide ClanSystem"
-main: de.codingair.clansystem.spigot.base.ClanSystem
+main: de.codingair.clansystem.spigot.ClanSystem
 softdepend: [Multiverse-Core, Vault, Essentials, MultiWorld, PlaceholderAPI, PlayerPoints, GemsEconomy]
-api-version: "1.15"
+api-version: "1.13"
