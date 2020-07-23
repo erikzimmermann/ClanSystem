@@ -62,7 +62,7 @@ public class Clan implements Serializable {
             }
         });
 
-        out.writeByte(statistics.size()); //max 65.534 statistics
+        out.writeByte(statistics.size()); //max 512 statistics
         statistics.forEach((stat, value) -> {
             try {
                 out.writeByte(stat.getId());

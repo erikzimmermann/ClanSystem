@@ -20,7 +20,7 @@ public enum Permission {
     public final static Permission[] VALUES = values();
 
     public void applyToByteMask(byte[] mask) {
-        mask[ordinal() / 8] |= 1 << ordinal() % 8;
+        mask[ordinal() / 8] |= (1 << (ordinal() % 8));
     }
 
     public static Set<Permission> byByteMask(byte[] mask) {
