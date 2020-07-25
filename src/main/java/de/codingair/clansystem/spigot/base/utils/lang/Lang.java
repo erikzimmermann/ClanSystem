@@ -38,10 +38,9 @@ public class Lang {
     }
 
     private static void mkDir(File file) {
-        if(!file.getParentFile().exists()) mkDir(file.getParentFile());
         if(!file.exists()) {
             try {
-                file.mkdir();
+                file.mkdirs();
             } catch(SecurityException ex) {
                 throw new IllegalArgumentException("Plugin is not permitted to create a folder!");
             }
