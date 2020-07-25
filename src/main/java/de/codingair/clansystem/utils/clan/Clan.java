@@ -6,14 +6,14 @@ import java.util.*;
 import java.util.function.BiFunction;
 
 public class Clan {
-    private final int id; //unique id
-    private String name;
-    private final HashMap<UUID, Rank> members;
-    private final HashMap<Rank, Integer> ranks; //integer value for permission inheritance
+    protected final int id; //unique id
+    protected String name;
+    protected final HashMap<UUID, Rank> members;
+    protected final HashMap<Rank, Integer> ranks; //integer value for permission inheritance
 
-    private final HashMap<Statistic, Long> statistics;
-    private int level; //>= 0
-    private float exp; //relative value between 0 and 1
+    protected final HashMap<Statistic, Long> statistics;
+    protected int level; //>= 0
+    protected float exp; //relative value between 0 and 1
 
     public Clan(int id, String name, HashMap<UUID, Rank> members, HashMap<Rank, Integer> ranks, HashMap<Statistic, Long> statistics, int level, float exp) {
         this.id = id;
