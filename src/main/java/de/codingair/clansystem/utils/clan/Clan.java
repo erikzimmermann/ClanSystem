@@ -10,15 +10,15 @@ import java.io.IOException;
 import java.util.*;
 import java.util.function.BiFunction;
 
-public class Clan implements Serializable {
-    private long id; //unique id
-    private String name;
-    private final HashMap<Rank, Integer> ranks; //integer value for permission inheritance
-    private final HashMap<UUID, Rank> members;
+public class Clan {
+    protected long id; //unique id
+    protected String name;
+    protected final HashMap<Rank, Integer> ranks; //integer value for permission inheritance
+    protected final HashMap<UUID, Rank> members;
 
-    private final HashMap<Statistic, Long> statistics;
-    private int level; //>= 0
-    private float exp; //relative value between 0 and 1
+    protected final HashMap<Statistic, Long> statistics;
+    protected int level; //>= 0
+    protected float exp; //relative value between 0 and 1
 
     public Clan() {
         this.ranks = new HashMap<>();
