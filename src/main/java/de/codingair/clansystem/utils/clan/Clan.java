@@ -41,7 +41,7 @@ public class Clan implements Serializable {
         out.writeLong(id);
         out.writeUTF(name);
 
-        out.writeByte(ranks.size()); //max 512 ranks
+        out.writeByte(ranks.size()); //max 255 ranks
         ranks.forEach((r, i) -> {
             try {
                 r.write(out);
@@ -51,7 +51,7 @@ public class Clan implements Serializable {
             }
         });
 
-        out.writeShort(members.size()); //max 65.534 members
+        out.writeShort(members.size()); //max 65.535 members
         members.forEach((id, r) -> {
             try {
                 out.writeLong(id.getMostSignificantBits());
@@ -62,7 +62,7 @@ public class Clan implements Serializable {
             }
         });
 
-        out.writeByte(statistics.size()); //max 512 statistics
+        out.writeByte(statistics.size()); //max 255 statistics
         statistics.forEach((stat, value) -> {
             try {
                 out.writeByte(stat.getId());
@@ -97,7 +97,7 @@ public class Clan implements Serializable {
         }
         index.clear();
 
-        i = in.readUnsignedShort();
+        i = in.readUnsignedByte();
         for(int j = 0; j < i; j++) {
             statistics.put(Statistics.VALUES[in.readUnsignedByte()].getStatistic(), in.readLong());
         }
