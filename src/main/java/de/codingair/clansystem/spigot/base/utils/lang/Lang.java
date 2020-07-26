@@ -4,6 +4,7 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import de.codingair.clansystem.spigot.ClanSystem;
 import de.codingair.clansystem.spigot.base.utils.PAPI;
+import de.codingair.clansystem.spigot.base.utils.money.Bank;
 import de.codingair.codingapi.files.ConfigFile;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -18,6 +19,14 @@ import java.util.concurrent.TimeUnit;
 public class Lang {
     private static final Cache<String, Boolean> EXIST = CacheBuilder.newBuilder().expireAfterAccess(5, TimeUnit.MINUTES).build();
     private static ConfigFile config = null;
+
+    public static void init() {
+        try {
+            initPreDefinedLanguages(ClanSystem.getInstance());
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void initPreDefinedLanguages(JavaPlugin plugin) throws IOException {
         List<String> languages = new ArrayList<>();
@@ -120,6 +129,7 @@ public class Lang {
         s = s.replace("\\n", "\n");
         s = ChatColor.translateAlternateColorCodes('&', s);
         s = PAPI.convert(s, player);
+        s = s.replace("%ECO%", Bank.name());
         return s;
     }
 

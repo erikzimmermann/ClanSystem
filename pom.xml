@@ -24,6 +24,16 @@
             <id>placeholderapi</id>
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
+        <!-- This adds the EssentialsX Maven repository to the build -->
+        <repository>
+            <id>ess-repo</id>
+            <url>https://ci.ender.zone/plugin/repository/everything/</url>
+        </repository>
+        <!-- This adds the Vault Maven repository to the build -->
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
     </repositories>
 
     <build>
@@ -152,7 +162,21 @@
             <artifactId>codingapi</artifactId>
             <version>6.0.0</version>
         </dependency>
-        <!--This adds the PlaceholderAPI artifact to the build -->
+        <!--This adds the EssentialsX API artifact to the build -->
+        <dependency>
+            <groupId>net.ess3</groupId>
+            <artifactId>EssentialsX</artifactId>
+            <version>2.17.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--This adds the Vault API artifact to the build -->
+        <dependency>
+            <groupId>com.github.MilkBowl</groupId>
+            <artifactId>VaultAPI</artifactId>
+            <version>1.7</version>
+            <scope>provided</scope>
+        </dependency>
+         <!--This adds the PlaceholderAPI artifact to the build -->
         <dependency>
             <groupId>me.clip</groupId>
             <artifactId>placeholderapi</artifactId>
