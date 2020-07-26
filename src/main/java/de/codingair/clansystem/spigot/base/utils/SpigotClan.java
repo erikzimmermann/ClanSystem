@@ -12,13 +12,11 @@ import java.util.Set;
 import java.util.UUID;
 
 public class SpigotClan extends Clan {
-//    todo
-//    wait for CS-008
-//    public SpigotClan() {
-//    }
+    public SpigotClan() {
+    }
 
-    public SpigotClan(int id, String name, HashMap<UUID, Rank> members, HashMap<Rank, Integer> ranks, HashMap<Statistic, Long> statistics, int level, float exp) {
-        super(id, name, members, ranks, statistics, level, exp);
+    public SpigotClan(long id, String name, HashMap<Rank, Integer> ranks, HashMap<UUID, Rank> members, HashMap<Statistic, Long> statistics, int level, float exp) {
+        super(id, name, ranks, members, statistics, level, exp);
     }
 
     public Set<Player> getOnlinePlayers() {

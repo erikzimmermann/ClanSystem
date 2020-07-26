@@ -1,0 +1,5 @@
+name: ClanSystem
+authors: [CodingAir, dor_sax]
+version: "${project.version}"
+description: "A BungeeCord wide ClanSystem"
+main: de.codingair.clansystem.bungee.ClanSystem
