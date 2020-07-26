@@ -12,7 +12,7 @@ public enum PacketType {
 
     BooleanPacket(BooleanPacket.class),
     IntegerPacket(IntegerPacket.class),
-    LongPacket1(LongPacket.class),
+    LongPacket(LongPacket.class),
     ;
 
     public static final PacketType[] VALUES = values();
