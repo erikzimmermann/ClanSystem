@@ -59,7 +59,7 @@ public class BungeeDataHandler implements DataHandler {
         }
 
         try {
-            out.writeInt(type.getId());
+            out.writeByte(type.ordinal());
             packet.write(out);
         } catch(IOException e) {
             e.printStackTrace();

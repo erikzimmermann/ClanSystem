@@ -30,7 +30,7 @@ public class ChannelListener implements Listener {
             try {
                 if(!in.readUTF().equals(DataHandler.REQUEST_CHANNEL)) return;
 
-                PacketType type = PacketType.getById(in.readInt());
+                PacketType type = PacketType.VALUES[in.readUnsignedByte()];
                 Packet packet = (Packet) type.getPacketClass().newInstance();
 
                 packet.read(in);
