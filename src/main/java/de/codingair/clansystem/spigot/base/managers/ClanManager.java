@@ -22,7 +22,7 @@ public class ClanManager implements DataModule {
     private final HashMap<String, SpigotClan> clans = new HashMap<>(); //SpigotClan name -> SpigotClan
     private final HashMap<Player, SpigotClan> playerClans = new HashMap<>(); //player -> SpigotClan
 
-    private static final long TIME_OUT = 5 * 60 * 100;  //timeout in milliseconds to remove clan from cache
+    private static final long TIME_OUT = 5 * 60 * 1000;  //timeout in milliseconds to remove clan from cache
     private final TimeSet<String> waiting;  //remove clan after timeout, cancel if clan member joins again
     private final Set<Object> loading = new HashSet<>(); //String (SpigotClan name) or Player; for command feedback -> "Please wait a moment while loading your data."
 
