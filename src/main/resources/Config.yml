@@ -1,0 +1,10 @@
+ClanSystem:
+  Economy:
+    Enabled: true
+    Name: 'Coin(s)'
+    #Priority list for economy systems
+    #Available values: EXP, Essentials, Vault, GemsEconomy, PlayerPoints
+    priority:
+      - Essentials
+      - Vault
+      - EXP

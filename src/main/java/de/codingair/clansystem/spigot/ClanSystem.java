@@ -1,6 +1,7 @@
 package de.codingair.clansystem.spigot;
 
 import de.codingair.clansystem.spigot.base.managers.ClanManager;
+import de.codingair.clansystem.spigot.base.utils.lang.Lang;
 import de.codingair.codingapi.files.FileManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import de.codingair.codingapi.API;
@@ -14,6 +15,9 @@ public class ClanSystem extends JavaPlugin {
     public void onEnable() {
         instance = this;
         API.getInstance().onEnable(this);
+
+        this.fileManager.loadFile("Config");
+        Lang.init();
         clanManager.load();
     }
 
