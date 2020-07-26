@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.function.BiFunction;
 
-public class Clan {
+public class Clan implements Serializable {
     protected long id; //unique id
     protected String name;
     protected final HashMap<Rank, Integer> ranks; //integer value for permission inheritance

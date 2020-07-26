@@ -49,7 +49,7 @@ public class SpigotDataHandler implements DataHandler {
 
     public void send(Packet packet, int timeOut) {
         if(!Bukkit.getOnlinePlayers().isEmpty()) {
-            Player player = Bukkit.getOnlinePlayers().toArray(new Player[0])[0];
+            Player player = Bukkit.getOnlinePlayers().iterator().next();
 
             ByteArrayOutputStream b = new ByteArrayOutputStream();
             DataOutputStream out = new DataOutputStream(b);

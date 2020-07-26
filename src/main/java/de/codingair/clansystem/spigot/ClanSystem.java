@@ -35,6 +35,8 @@ public class ClanSystem extends JavaPlugin {
 
     public SpigotDataHandler getDataHandler() {
         return dataHandler;
+    }
+
     public ClanManager getClanManager() {
         return clanManager;
     }
