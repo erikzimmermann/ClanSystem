@@ -7,7 +7,7 @@ import de.codingair.clansystem.spigot.base.utils.SpigotClan;
 import de.codingair.clansystem.utils.DataModule;
 import de.codingair.clansystem.utils.clan.Clan;
 import de.codingair.codingapi.tools.Callback;
-import de.codingair.codingapi.tools.time.TimeList;
+import de.codingair.codingapi.tools.time.TimeSet;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -23,13 +23,13 @@ public class ClanManager implements DataModule {
     private final HashMap<Player, SpigotClan> playerClans = new HashMap<>(); //player -> SpigotClan
 
     private static final long TIME_OUT = 5 * 60 * 100;  //timeout in milliseconds to remove clan from cache
-    private final TimeList<String> waiting;
+    private final TimeSet<String> waiting;  //remove clan after timeout, cancel if clan member joins again
     private final Set<Object> loading = new HashSet<>(); //String (SpigotClan name) or Player; for command feedback -> "Please wait a moment while loading your data."
 
     private ClanListener listener;
 
     public ClanManager() {
-        waiting = new TimeList<String>() {
+        waiting = new TimeSet<String>() {
             @Override
             public void timeout(String key) {
                 //ignore playerClans <-- no player is online if timeout is triggered
