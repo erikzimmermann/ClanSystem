@@ -1,50 +1,38 @@
 package de.codingair.clansystem.transfer.packets;
 
-import de.codingair.clansystem.transfer.packets.general.*;
+import de.codingair.clansystem.transfer.packets.general.BooleanPacket;
+import de.codingair.clansystem.transfer.packets.general.IntegerPacket;
+import de.codingair.clansystem.transfer.packets.general.LongPacket;
 import de.codingair.clansystem.transfer.packets.utils.AnswerPacket;
 
+//max 255 packets
 public enum PacketType {
-    ERROR(0, null),
-    AnswerPacket(1, AnswerPacket.class),
+    ERROR(null),
+    AnswerPacket(AnswerPacket.class),
 
-    BooleanPacket(100, BooleanPacket.class),
-    IntegerPacket(101, IntegerPacket.class),
-    LongPacket1(102, LongPacket.class),
+    BooleanPacket(BooleanPacket.class),
+    IntegerPacket(IntegerPacket.class),
+    LongPacket1(LongPacket.class),
     ;
 
-    private int id;
-    private Class<?> packet;
+    public static final PacketType[] VALUES = values();
+    private final Class<?> packetClass;
 
-    PacketType(int id, Class<?> packet) {
-        this.id = id;
-        this.packet = packet;
-    }
-
-    public static PacketType getById(int id) {
-        for(PacketType packetType : values()) {
-            if(packetType.getId() == id) return packetType;
-        }
-
-        return ERROR;
+    PacketType(Class<?> packetClass) {
+        this.packetClass = packetClass;
     }
 
     public static PacketType getByObject(Object packet) {
         if(packet == null) return ERROR;
 
-        for(PacketType packetType : values()) {
-            if(packetType.equals(ERROR)) continue;
-
-            if(packetType.getPacket().equals(packet.getClass())) return packetType;
+        for(PacketType packetType : VALUES) {
+            if(packet.getClass().equals(packetType.getPacketClass())) return packetType;
         }
 
         return ERROR;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public Class<?> getPacket() {
-        return packet;
+    public Class<?> getPacketClass() {
+        return packetClass;
     }
 }

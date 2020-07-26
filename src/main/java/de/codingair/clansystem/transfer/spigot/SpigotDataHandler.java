@@ -70,7 +70,7 @@ public class SpigotDataHandler implements DataHandler {
 
             try {
                 out.writeUTF(REQUEST_CHANNEL);
-                out.writeInt(type.getId());
+                out.writeByte(type.ordinal());
                 packet.write(out);
             } catch(IOException e) {
                 e.printStackTrace();

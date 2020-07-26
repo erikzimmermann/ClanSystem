@@ -31,7 +31,7 @@ public class ChannelListener implements Listener {
                 if(!in.readUTF().equals(DataHandler.REQUEST_CHANNEL)) return;
 
                 PacketType type = PacketType.getById(in.readInt());
-                Packet packet = (Packet) type.getPacket().newInstance();
+                Packet packet = (Packet) type.getPacketClass().newInstance();
 
                 packet.read(in);
                 this.bungeeDataHandler.onReceive(packet, server);

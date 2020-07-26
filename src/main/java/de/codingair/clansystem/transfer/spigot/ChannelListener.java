@@ -23,8 +23,8 @@ public class ChannelListener implements PluginMessageListener {
             DataInputStream in = new DataInputStream(new ByteArrayInputStream(bytes));
 
             try {
-                PacketType type = PacketType.getById(in.readInt());
-                Packet packet = (Packet) type.getPacket().newInstance();
+                PacketType type = PacketType.VALUES[in.readUnsignedByte()];
+                Packet packet = (Packet) type.getPacketClass().newInstance();
 
                 packet.read(in);
                 this.spigotDataHandler.onReceive(packet);
