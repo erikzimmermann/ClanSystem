@@ -1,6 +1,6 @@
 package de.codingair.clansystem.spigot.base.managers;
 
-import com.sun.istack.internal.Nullable;
+import org.jetbrains.annotations.Nullable;
 import de.codingair.clansystem.spigot.ClanSystem;
 import de.codingair.clansystem.spigot.base.listeners.ClanListener;
 import de.codingair.clansystem.spigot.base.utils.SpigotClan;
