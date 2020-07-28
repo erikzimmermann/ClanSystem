@@ -12,7 +12,7 @@ public class Bank {
 
     private Bank() {
         //priority
-        ConfigFile file = ClanSystem.getInstance().getFileManager().getFile("Config");
+        ConfigFile file = ClanSystem.getInstance().getFileManager().getFile("config");
         FileConfiguration config = file.getConfig();
         this.displayName = config.getString("ClanSystem.Economy.Name", "Coin(s)").trim();
 
