@@ -1,6 +1,5 @@
 package de.codingair.clansystem.spigot.base.managers;
 
-import com.sun.istack.internal.Nullable;
 import de.codingair.clansystem.spigot.ClanSystem;
 import de.codingair.clansystem.spigot.base.listeners.ClanListener;
 import de.codingair.clansystem.spigot.base.utils.SpigotClan;
@@ -88,7 +87,7 @@ public class ClanManager implements DataModule {
         }
     }
 
-    private void loadClan(String name, @Nullable Callback<SpigotClan> callback) {
+    private void loadClan(String name, Callback<SpigotClan> callback) {
         SpigotClan c = getClan(name);
         if(c != null) {
             if(callback != null) callback.accept(c);
@@ -106,7 +105,7 @@ public class ClanManager implements DataModule {
          */
     }
 
-    private void loadClan(Player player, @Nullable Callback<SpigotClan> callback) {
+    private void loadClan(Player player, Callback<SpigotClan> callback) {
         SpigotClan c = getClan(player);
         if(c != null) {
             if(callback != null) callback.accept(c);
