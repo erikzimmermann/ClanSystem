@@ -327,7 +327,7 @@ public abstract class Clan implements Serializable {
         } else return null;
     }
 
-    public Rank getRank(UUID uuid) {
+    public Rank getMemberRank(UUID uuid) {
         return members.get(uuid);
     }
 
