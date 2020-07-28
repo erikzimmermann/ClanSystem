@@ -14,10 +14,22 @@ public enum Permission {
     PROMOTE,
     DEMOTE,
     RENAME,
-    TRANSFER,   //only for president
-    DELETE;   //only for president
+    TRANSFER(true),   //only for president
+    DELETE(true);   //only for president
 
     public final static Permission[] VALUES = values();
+    private boolean fixed = false;
+
+    Permission() {
+    }
+
+    Permission(boolean fixed) {
+        this.fixed = fixed;
+    }
+
+    public boolean isFixed() {
+        return fixed;
+    }
 
     public void applyToByteMask(byte[] mask) {
         mask[ordinal() / 8] |= (1 << (ordinal() % 8));
