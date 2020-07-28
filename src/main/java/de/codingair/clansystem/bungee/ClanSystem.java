@@ -1,5 +1,6 @@
 package de.codingair.clansystem.bungee;
 
+import de.codingair.clansystem.bungee.listeners.GeneralPacketReader;
 import de.codingair.clansystem.transfer.bungee.BungeeDataHandler;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
@@ -12,6 +13,7 @@ public class ClanSystem extends Plugin {
     public void onEnable() {
         instance = this;
         dataHandler.onEnable();
+        dataHandler.register(new GeneralPacketReader());
     }
 
     @Override

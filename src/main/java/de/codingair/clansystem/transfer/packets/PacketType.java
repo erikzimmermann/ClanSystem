@@ -3,6 +3,8 @@ package de.codingair.clansystem.transfer.packets;
 import de.codingair.clansystem.transfer.packets.general.BooleanPacket;
 import de.codingair.clansystem.transfer.packets.general.IntegerPacket;
 import de.codingair.clansystem.transfer.packets.general.LongPacket;
+import de.codingair.clansystem.transfer.packets.general.bungee.SendUUIDPacket;
+import de.codingair.clansystem.transfer.packets.general.spigot.RequestUUIDPacket;
 import de.codingair.clansystem.transfer.packets.utils.AnswerPacket;
 
 //max 255 packets
@@ -13,6 +15,9 @@ public enum PacketType {
     BooleanPacket(BooleanPacket.class),
     IntegerPacket(IntegerPacket.class),
     LongPacket(LongPacket.class),
+
+    RequestUUIDPacket(RequestUUIDPacket.class),
+    SendUUIDPacket(SendUUIDPacket.class),
     ;
 
     public static final PacketType[] VALUES = values();

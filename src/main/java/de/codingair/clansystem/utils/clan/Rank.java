@@ -5,13 +5,16 @@ import de.codingair.clansystem.transfer.Serializable;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Set;
 
 public class Rank implements Serializable {
     private int id;
-    private int trace;  //permission successor, inheritance depth, -1 to ignore.
+    private int trace;  //permission successor, inheritance depth, -1 to ignore (-1 signalizes lowest rank).
     private String name;  //display name including '&'-color-codes
     private Set<Permission> permissions;
+
+    private Rank predecessor, successor;
 
     public Rank() {
     }
@@ -78,5 +81,50 @@ public class Rank implements Serializable {
 
     public boolean hasPermission(Permission permission) {
         return this.permissions.contains(permission);
+    }
+
+    public Rank getPredecessor() {
+        return predecessor;
+    }
+
+    void setPredecessor(Rank predecessor) {
+        this.predecessor = predecessor;
+    }
+
+    public Rank getSuccessor() {
+        return successor;
+    }
+
+    void setSuccessor(Rank successor) {
+        this.successor = successor;
+    }
+
+    public Rank findRank(int id) {
+        Rank r = first();
+        while(r != null && r.getId() != id) r = r.successor;
+        return r;
+    }
+
+    public Rank first() {
+        if(predecessor == null) return this;
+        else return predecessor.first();
+    }
+
+    public Rank last() {
+        if(successor == null) return this;
+        else return successor.last();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) return true;
+        if(o == null || getClass() != o.getClass()) return false;
+        Rank rank = (Rank) o;
+        return id == rank.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
