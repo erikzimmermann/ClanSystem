@@ -18,7 +18,7 @@ public class ClanSystem extends JavaPlugin {
         instance = this;
         API.getInstance().onEnable(this);
 
-        this.fileManager.loadFile("Config");
+        this.fileManager.loadFile("config");
         Lang.init();
         dataHandler.onEnable();
         clanManager.load();

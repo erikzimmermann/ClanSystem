@@ -143,7 +143,7 @@ public abstract class Clan implements Serializable {
     }
 
     public void invite(UUID executor, UUID player) throws PermissionException, NotAMemberException, AlreadyInvitedException {
-        Rank r = getRank(executor);
+        Rank r = getMemberRank(executor);
 
         if(r == null) throw new NotAMemberException();
         if(!hasPermission(r, Permission.INVITE)) throw new PermissionException();
@@ -160,7 +160,7 @@ public abstract class Clan implements Serializable {
     }
 
     public void deposit(UUID executor, int money) throws PermissionException, NotAMemberException {
-        Rank r = getRank(executor);
+        Rank r = getMemberRank(executor);
 
         if(r == null) throw new NotAMemberException();
         if(!hasPermission(r, Permission.DEPOSIT)) throw new PermissionException();
@@ -169,7 +169,7 @@ public abstract class Clan implements Serializable {
     }
 
     public void withdraw(UUID executor, int money) throws PermissionException, NotAMemberException {
-        Rank r = getRank(executor);
+        Rank r = getMemberRank(executor);
 
         if(r == null) throw new NotAMemberException();
         if(!hasPermission(r, Permission.WITHDRAW)) throw new PermissionException();
@@ -178,12 +178,12 @@ public abstract class Clan implements Serializable {
     }
 
     public void kick(UUID executor, UUID player) throws PermissionException, NotAMemberException {
-        Rank rankE = getRank(executor);
+        Rank rankE = getMemberRank(executor);
 
         if(rankE == null) throw new NotAMemberException();
         if(!hasPermission(rankE, Permission.KICK)) throw new PermissionException();
 
-        Rank rankK = getRank(player);
+        Rank rankK = getMemberRank(player);
         if(rankK == null)
             throw new NotAMemberException();
 
@@ -196,7 +196,7 @@ public abstract class Clan implements Serializable {
     }
 
     public void leave(UUID executor) throws HighestRankException, NotAMemberException {
-        Rank r = getRank(executor);
+        Rank r = getMemberRank(executor);
 
         if(r == null) throw new NotAMemberException();
         if(president.equals(r)) throw new HighestRankException();
@@ -205,12 +205,12 @@ public abstract class Clan implements Serializable {
     }
 
     public void promote(UUID executor, UUID promote) throws PermissionException, NotAMemberException {
-        Rank rankE = getRank(executor);
+        Rank rankE = getMemberRank(executor);
 
         if(rankE == null) throw new NotAMemberException();
         if(!hasPermission(rankE, Permission.PROMOTE)) throw new PermissionException();
 
-        Rank rankP = getRank(promote);
+        Rank rankP = getMemberRank(promote);
         if(rankP == null)
             throw new NotAMemberException();
         if(rankE.equals(rankP) || hasInheritance(rankP, rankE))
@@ -226,12 +226,12 @@ public abstract class Clan implements Serializable {
     }
 
     public void demote(UUID executor, UUID demote) throws PermissionException, NotAMemberException {
-        Rank rankE = getRank(executor);
+        Rank rankE = getMemberRank(executor);
 
         if(rankE == null) throw new NotAMemberException();
         if(!hasPermission(rankE, Permission.DEMOTE)) throw new PermissionException();
 
-        Rank rankD = getRank(demote);
+        Rank rankD = getMemberRank(demote);
         if(rankD == null)
             throw new NotAMemberException();
         if(rankE.equals(rankD) || hasInheritance(rankD, rankE))
@@ -246,7 +246,7 @@ public abstract class Clan implements Serializable {
     }
 
     public void rename(UUID executor, String name) throws PermissionException, NotAMemberException {
-        Rank rankE = getRank(executor);
+        Rank rankE = getMemberRank(executor);
 
         if(rankE == null) throw new NotAMemberException();
         if(!hasPermission(rankE, Permission.RENAME)) throw new PermissionException();
@@ -256,12 +256,12 @@ public abstract class Clan implements Serializable {
     }
 
     public void transfer(UUID executor, UUID owner) throws NotAMemberException, PermissionException {
-        Rank rankE = getRank(executor);
+        Rank rankE = getMemberRank(executor);
 
         if(rankE == null) throw new NotAMemberException();
         if(!hasPermission(rankE, Permission.TRANSFER)) throw new PermissionException();
 
-        Rank rankO = getRank(owner);
+        Rank rankO = getMemberRank(owner);
         if(rankO == null)
             //owner is not a member of this clan
             throw new NotAMemberException();
@@ -286,14 +286,14 @@ public abstract class Clan implements Serializable {
     public boolean hasInheritance(Rank rank, Rank legacy) {
         if(rank == null) return false;
         else if(rank.equals(legacy)) return true;
-        else return hasInheritance(getRank(rank.getTrace()), legacy);
+        else return hasInheritance(getClanRank(rank.getTrace()), legacy);
     }
 
     public boolean hasPermission(Rank r, Permission p) {
         if(r == null) return false;
         else if(r.hasPermission(p)) return true;
         else if(r.getTrace() == -1) return false;
-        else return hasPermission(getRank(r.getTrace()), p);
+        else return hasPermission(getClanRank(r.getTrace()), p);
     }
 
     public void registerRank(Rank predecessor, Rank successor, Rank rank) {

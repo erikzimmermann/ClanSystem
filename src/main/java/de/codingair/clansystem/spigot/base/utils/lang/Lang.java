@@ -144,7 +144,7 @@ public class Lang {
     private static FileConfiguration getConfig() {
         if(config == null) {
             try {
-                config = ClanSystem.getInstance().getFileManager().getFile("Config");
+                config = ClanSystem.getInstance().getFileManager().getFile("config");
             } catch(Exception e) {
                 e.printStackTrace();
                 return null;
