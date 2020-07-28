@@ -134,6 +134,7 @@ public abstract class Clan implements Serializable {
                 if(rank.getTrace() == r.getId()) {
                     r.setSuccessor(rank);
                     rank.setPredecessor(r);
+                    break;
                 }
             }
         }
