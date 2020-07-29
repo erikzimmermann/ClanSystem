@@ -6,7 +6,7 @@
 
     <groupId>de.codingair</groupId>
     <artifactId>clansystem</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>2.0.0-SNAPSHOT</version>
 
     <repositories>
         <!-- This adds the Bungeecord Maven repository to the build -->
@@ -37,8 +37,6 @@
     </repositories>
 
     <build>
-        <finalName>${project.artifactId}_${project.version}</finalName>
-
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -69,7 +67,6 @@
                 </excludes>
             </resource>
         </resources>
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -80,27 +77,57 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.3</version>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.4</version>
                 <executions>
                     <execution>
-                        <phase>package</phase>
+                        <id>install-external-codingapi</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <repositoryLayout>default</repositoryLayout>
+                            <groupId>de.codingair</groupId>
+                            <artifactId>codingapi</artifactId>
+                            <version>6.0.0</version>
+                            <file>${project.basedir}/lib/CodingAPI.jar</file>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
                         <goals>
-                            <goal>shade</goal>
+                            <goal>install-file</goal>
                         </goals>
                     </execution>
                 </executions>
-
+            </plugin>
+            <!-- Maven Assembly Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.4.1</version>
                 <configuration>
-                    <artifactSet>
-                        <includes>
-                            <include>de.codingair:codingapi</include>
-                        </includes>
-                    </artifactSet>
+                    <!-- get all project dependencies -->
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <!-- MainClass in mainfest make a executable jar -->
+                    <archive>
+                        <manifest>
+                            <mainClass>de.codingair.clansystem.spigot.ClanSystem</mainClass>
+                        </manifest>
+                    </archive>
+
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <!-- bind to the packaging phase -->
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -133,7 +160,7 @@
         <dependency>
             <groupId>de.codingair</groupId>
             <artifactId>codingapi</artifactId>
-            <version>1.0</version>
+            <version>6.0.0</version>
         </dependency>
         <!--This adds the EssentialsX API artifact to the build -->
         <dependency>
