@@ -29,7 +29,7 @@
             <id>ess-repo</id>
             <url>https://ci.ender.zone/plugin/repository/everything/</url>
         </repository>
-        <!-- This adds the Vault Maven repository to the build -->
+        <!-- This adds the JitPack repository to the build -->
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
@@ -37,6 +37,8 @@
     </repositories>
 
     <build>
+        <finalName>${project.artifactId}_${project.version}</finalName>
+
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -67,6 +69,7 @@
                 </excludes>
             </resource>
         </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -77,57 +80,28 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-install-plugin</artifactId>
-                <version>2.4</version>
-                <executions>
-                    <execution>
-                        <id>install-external-codingapi</id>
-                        <phase>clean</phase>
-                        <configuration>
-                            <repositoryLayout>default</repositoryLayout>
-                            <groupId>de.codingair</groupId>
-                            <artifactId>codingapi</artifactId>
-                            <version>6.0.0</version>
-                            <file>${project.basedir}/lib/CodingAPI.jar</file>
-                            <packaging>jar</packaging>
-                            <generatePom>true</generatePom>
-                        </configuration>
-                        <goals>
-                            <goal>install-file</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <!-- Maven Assembly Plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.4.1</version>
-                <configuration>
-                    <!-- get all project dependencies -->
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <!-- MainClass in mainfest make a executable jar -->
-                    <archive>
-                        <manifest>
-                            <mainClass>de.codingair.clansystem.spigot.ClanSystem</mainClass>
-                        </manifest>
-                    </archive>
 
-                </configuration>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.3</version>
                 <executions>
                     <execution>
-                        <id>make-assembly</id>
-                        <!-- bind to the packaging phase -->
                         <phase>package</phase>
                         <goals>
-                            <goal>single</goal>
+                            <goal>shade</goal>
                         </goals>
                     </execution>
                 </executions>
+
+                <configuration>
+                    <artifactSet>
+                        <includes>
+                            <include>com.github.CodingAir:CodingAPI</include>
+                            <include>org.jetbrains:annotations</include>
+                        </includes>
+                    </artifactSet>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -158,9 +132,9 @@
         </dependency>
         <!--This adds the CodingAPI artifact to the build -->
         <dependency>
-            <groupId>de.codingair</groupId>
-            <artifactId>codingapi</artifactId>
-            <version>6.0.0</version>
+            <groupId>com.github.CodingAir</groupId>
+            <artifactId>CodingAPI</artifactId>
+            <version>1.0</version>
         </dependency>
         <!--This adds the EssentialsX API artifact to the build -->
         <dependency>
