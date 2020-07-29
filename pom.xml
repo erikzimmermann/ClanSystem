@@ -183,10 +183,17 @@
             <version>2.10.6</version>
             <scope>provided</scope>
         </dependency>
+        <!-- This adds Nullifying support to the build -->
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>13.0</version>
+        </dependency>
+        <!-- This adds the MySQL Drivers to the build -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.21</version>
         </dependency>
     </dependencies>
 
