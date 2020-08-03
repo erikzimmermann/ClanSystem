@@ -8,3 +8,12 @@ ClanSystem:
       - Essentials
       - Vault
       - EXP
+  Database:
+    #Available Values: MySQL, SQLite
+    Type: MySQL
+    #if you choose MySQL
+    MySQL:
+      Host: 'localhost:3306'
+      Database: 'clansystem'
+      Username: 'db-user'
+      Password: 'password123'

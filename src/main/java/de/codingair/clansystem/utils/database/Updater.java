@@ -3,10 +3,7 @@ package de.codingair.clansystem.utils.database;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.UUID;
 
 public class Updater {
@@ -19,23 +16,22 @@ public class Updater {
         int clan_id = -1;
         try {
             connect = ConnectionManager.startConnection();
-            PreparedStatement insert = connect.prepareStatement("INSERT INTO `clans` (`name`) values (?)");
-            PreparedStatement select = connect.prepareStatement("SELECT `clan_id` FROM `clans` WHERE name=? ORDER BY `clan_id` DESC LIMIT 1;");
+            PreparedStatement insert = connect.prepareStatement("INSERT INTO `clans` (`name`) values (?)",PreparedStatement.RETURN_GENERATED_KEYS);
 
             // Parameters start with 1
             insert.setString(1, name);
             insert.executeUpdate();
 
-            select.setString(1, name);
-            ResultSet resultSet = select.executeQuery();
+            ResultSet resultSet = insert.getGeneratedKeys();
 
-            resultSet.next();
-            clan_id = resultSet.getInt("clan_id");
+            if (resultSet.next()) {
+                clan_id = resultSet.getInt(1);
+            }
         } catch (SQLException e) {
             sqlex = e;
         } finally {
-            ConnectionManager.stopConnection(connect);
-            connect = null;
+            connect.close();
+            
         }
         if (sqlex != null) {
             throw sqlex;
@@ -50,24 +46,21 @@ public class Updater {
         try {
             connect = ConnectionManager.startConnection();
 
-            PreparedStatement insert = connect.prepareStatement("INSERT INTO `ranks` (`name`,`clan_id`) values (?,?)");
-            PreparedStatement select = connect.prepareStatement("SELECT `rank_id` FROM `ranks` WHERE name=? AND clan_id=? ORDER BY `rank_id` DESC LIMIT 1;");
+            PreparedStatement insert = connect.prepareStatement("INSERT INTO `ranks` (`name`,`clan_id`) values (?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
 
             insert.setString(1, name);
             insert.setInt(2, clan_id);
             insert.executeUpdate();
+            ResultSet resultSet = insert.getGeneratedKeys();
 
-            select.setString(1, name);
-            select.setInt(2, clan_id);
-            ResultSet resultSet = select.executeQuery();
-
-            resultSet.next();
-            rank_id = resultSet.getInt("rank_id");
+            if (resultSet.next()) {
+                rank_id = resultSet.getInt(1);
+            }
         } catch (SQLException e) {
             sqlex = e;
         } finally {
-            ConnectionManager.stopConnection(connect);
-            connect = null;
+            connect.close();
+            
         }
         if (sqlex != null) {
             throw sqlex;
@@ -93,8 +86,8 @@ public class Updater {
         } catch (SQLException e) {
             sqlex = e;
         } finally {
-            ConnectionManager.stopConnection(connect);
-            connect = null;
+            connect.close();
+            
         }
         if (sqlex != null) {
             throw sqlex;
@@ -114,8 +107,8 @@ public class Updater {
         } catch (SQLException e) {
             sqlex = e;
         } finally {
-            ConnectionManager.stopConnection(connect);
-            connect = null;
+            connect.close();
+            
         }
         if (sqlex != null) {
             throw sqlex;
@@ -135,8 +128,8 @@ public class Updater {
         } catch (SQLException e) {
             sqlex = e;
         } finally {
-            ConnectionManager.stopConnection(connect);
-            connect = null;
+            connect.close();
+            
         }
         if (sqlex != null) {
             throw sqlex;
@@ -157,8 +150,8 @@ public class Updater {
         } catch (SQLException e) {
             sqlex = e;
         } finally {
-            ConnectionManager.stopConnection(connect);
-            connect = null;
+            connect.close();
+            
         }
         if (sqlex != null) {
             throw sqlex;
@@ -178,8 +171,8 @@ public class Updater {
         } catch (SQLException e) {
             sqlex = e;
         } finally {
-            ConnectionManager.stopConnection(connect);
-            connect = null;
+            connect.close();
+            
         }
         if (sqlex != null) {
             throw sqlex;
@@ -199,8 +192,8 @@ public class Updater {
         } catch (SQLException e) {
             sqlex = e;
         } finally {
-            ConnectionManager.stopConnection(connect);
-            connect = null;
+            connect.close();
+            
         }
         if (sqlex != null) {
             throw sqlex;
@@ -220,8 +213,8 @@ public class Updater {
         } catch (SQLException e) {
             sqlex = e;
         } finally {
-            ConnectionManager.stopConnection(connect);
-            connect = null;
+            connect.close();
+            
         }
         if (sqlex != null) {
             throw sqlex;
@@ -241,8 +234,8 @@ public class Updater {
         } catch (SQLException e) {
             sqlex = e;
         } finally {
-            ConnectionManager.stopConnection(connect);
-            connect = null;
+            connect.close();
+            
         }
         if (sqlex != null) {
             throw sqlex;
@@ -262,8 +255,8 @@ public class Updater {
         } catch (SQLException e) {
             sqlex = e;
         } finally {
-            ConnectionManager.stopConnection(connect);
-            connect = null;
+            connect.close();
+            
         }
         if (sqlex != null) {
             throw sqlex;
@@ -282,8 +275,8 @@ public class Updater {
         } catch (SQLException e) {
             sqlex = e;
         } finally {
-            ConnectionManager.stopConnection(connect);
-            connect = null;
+            connect.close();
+            
         }
         if (sqlex != null) {
             throw sqlex;
@@ -302,8 +295,8 @@ public class Updater {
         } catch (SQLException e) {
             sqlex = e;
         } finally {
-            ConnectionManager.stopConnection(connect);
-            connect = null;
+            connect.close();
+            
         }
         if (sqlex != null) {
             throw sqlex;
@@ -323,8 +316,8 @@ public class Updater {
         } catch (SQLException e) {
             sqlex = e;
         } finally {
-            ConnectionManager.stopConnection(connect);
-            connect = null;
+            connect.close();
+            
         }
         if (sqlex != null) {
             throw sqlex;
@@ -344,8 +337,8 @@ public class Updater {
         } catch (SQLException e) {
             sqlex = e;
         } finally {
-            ConnectionManager.stopConnection(connect);
-            connect = null;
+            connect.close();
+            
         }
         if (sqlex != null) {
             throw sqlex;
@@ -364,8 +357,8 @@ public class Updater {
         } catch (SQLException e) {
             sqlex = e;
         } finally {
-            ConnectionManager.stopConnection(connect);
-            connect = null;
+            connect.close();
+            
         }
         if (sqlex != null) {
             throw sqlex;

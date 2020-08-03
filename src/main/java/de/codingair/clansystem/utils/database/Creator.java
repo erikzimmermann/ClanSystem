@@ -115,7 +115,7 @@ public class Creator {
                 }
 
                 if (connect != null) {
-                    ConnectionManager.stopConnection(connect);
+                    connect.close();
                 }
             } catch (SQLException e) {
                 if (sqlex != null) {
