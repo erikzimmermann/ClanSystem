@@ -49,7 +49,7 @@ public class EssentialsCurrency implements Adapter {
     private boolean check(Player player) {
         if(!Bukkit.getPluginManager().isPluginEnabled("Essentials")) return true;
 
-        if(!Economy.playerExists(player.getName())) Economy.createNPC(player.getName());
+        if(!Economy.playerExists(player.getUniqueId())) Economy.createNPC(player.getName());
         return false;
     }
 }

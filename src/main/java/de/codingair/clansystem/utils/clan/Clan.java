@@ -13,11 +13,12 @@ import java.util.*;
 import java.util.function.BiFunction;
 
 public abstract class Clan implements Serializable {
-    protected long id; //unique id
+    protected int id; //unique id
     protected String name;
-    protected final HashMap<Integer, Rank> ranks; //integer value for permission inheritance
+    protected final HashMap<Integer, Rank> ranks; //integer value: RankId
     protected final HashMap<UUID, Rank> members;
-    private Rank president;
+    private Rank presidentRank;
+    private Rank memberRank;
 
     protected final HashMap<Statistic, Long> statistics;
     protected int level; //>= 0
@@ -32,12 +33,30 @@ public abstract class Clan implements Serializable {
         this.statistics = new HashMap<>();
     }
 
-    public Clan(long id, String name, HashMap<Integer, Rank> ranks, HashMap<UUID, Rank> members, Rank president, HashMap<Statistic, Long> statistics, int level, float exp, int money) {
+    public Clan(int id, String name, UUID president, HashMap<Integer, Rank> ranks, Rank presidentRank) {
+        this.id = id;
+        this.name = name;
+        this.ranks = ranks;
+        this.members = new HashMap<>();
+        this.presidentRank = presidentRank;
+        this.statistics = new HashMap<>();
+        this.level = 0;
+        this.exp = 0;
+        this.money = 0;
+
+        this.members.put(president, this.presidentRank);
+
+        //apply pre/successor
+        applyRankTrace();
+        this.memberRank = this.presidentRank.first();
+    }
+
+    public Clan(int id, String name, HashMap<Integer, Rank> ranks, HashMap<UUID, Rank> members, Rank presidentRank, HashMap<Statistic, Long> statistics, int level, float exp, int money) {
         this.id = id;
         this.name = name;
         this.ranks = ranks;
         this.members = members;
-        this.president = president;
+        this.presidentRank = presidentRank;
         this.statistics = statistics;
         this.level = level;
         this.exp = exp;
@@ -49,10 +68,10 @@ public abstract class Clan implements Serializable {
 
     @Override
     public void write(DataOutputStream out) throws IOException {
-        out.writeLong(id);
+        out.writeInt(id);
         out.writeUTF(name);
 
-        out.writeByte(president.getId());
+        out.writeByte(presidentRank.getId());
         out.writeByte(ranks.size()); //max 255 ranks
         ranks.forEach((i, r) -> {
             try {
@@ -90,7 +109,7 @@ public abstract class Clan implements Serializable {
 
     @Override
     public void read(DataInputStream in) throws IOException {
-        id = in.readLong();
+        id = in.readInt();
         name = in.readUTF();
 
         int presidentId = in.readUnsignedByte();
@@ -101,7 +120,7 @@ public abstract class Clan implements Serializable {
             r.read(in);
             ranks.put(r.getId(), r);
 
-            if(presidentId == r.getId()) president = r;
+            if(presidentId == r.getId()) presidentRank = r;
         }
 
         i = in.readUnsignedShort();
@@ -153,6 +172,7 @@ public abstract class Clan implements Serializable {
 
     public void acceptInvite(UUID executor) throws NotInvitedException {
         if(!invites.remove(executor)) throw new NotInvitedException();
+
     }
 
     public void denyInvite(UUID executor) throws NotInvitedException {
@@ -199,9 +219,14 @@ public abstract class Clan implements Serializable {
         Rank r = getMemberRank(executor);
 
         if(r == null) throw new NotAMemberException();
-        if(president.equals(r)) throw new HighestRankException();
+        if(presidentRank.equals(r)) throw new HighestRankException();
 
         members.remove(executor);
+    }
+
+    public void addMember(UUID member) throws AlreadyAMemberException {
+        if(isMember(member)) throw new AlreadyAMemberException();
+        members.put(member, this.memberRank);
     }
 
     public void promote(UUID executor, UUID promote) throws PermissionException, NotAMemberException {
@@ -267,7 +292,7 @@ public abstract class Clan implements Serializable {
             throw new NotAMemberException();
 
         this.members.replace(executor, rankE.getPredecessor());
-        this.members.replace(owner, president);
+        this.members.replace(owner, presidentRank);
     }
 
     public String list() {
@@ -292,7 +317,7 @@ public abstract class Clan implements Serializable {
     public boolean hasPermission(Rank r, Permission p) {
         if(r == null) return false;
         else if(r.hasPermission(p)) return true;
-        else if(r.getTrace() == -1) return false;
+        else if(r.getTrace() == 0) return false;
         else return hasPermission(getClanRank(r.getTrace()), p);
     }
 
@@ -303,6 +328,9 @@ public abstract class Clan implements Serializable {
 
         rank.setPredecessor(predecessor);
         rank.setSuccessor(successor);
+
+        predecessor.setSuccessor(rank);
+        successor.setPredecessor(rank);
     }
 
     public Set<UUID> getMembersByRank(Rank rank) {
@@ -327,6 +355,10 @@ public abstract class Clan implements Serializable {
         } else return null;
     }
 
+    public boolean isMember(UUID player) {
+        return getMemberRank(player) != null;
+    }
+
     public Rank getMemberRank(UUID uuid) {
         return members.get(uuid);
     }
@@ -335,7 +367,7 @@ public abstract class Clan implements Serializable {
         return ranks.get(id);
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -415,8 +447,8 @@ public abstract class Clan implements Serializable {
         this.money += money;
     }
 
-    public Rank getPresident() {
-        return president;
+    public Rank getPresidentRank() {
+        return presidentRank;
     }
 
     @Override

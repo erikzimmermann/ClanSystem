@@ -1,1 +1,15 @@
-Prefix: "&8[&cClanSystem&8] &f"
+# Possible placeholders: %ECO%, %PREFIX%
+# We do not use our prefix if a text starts with '%NO_PREFIX%'.
+# + PlayerholderAPI support
+Prefix: "&8[&cClans&8] &f"
+Exception:
+  Loading: '&7Your data is &cloading&7, please try again in a few seconds.'
+  Only_For_Players: '&cThis is only for players!'
+  No_Permission: '&cYou don''t have permissions for that action!'
+  Already_in_Clan: '&7You are &calready a member &7of &e%clans_name%&7!'
+  Input_not_available: '&e%INPUT% &7is &cnot available&7.'
+Success:
+  Clan_created: '&7Your clan &e%clans_name% &7has been &acreated&7.'
+Command_Usage:
+  clans:
+    create: '&cUse: &7/clans create &e<name>'

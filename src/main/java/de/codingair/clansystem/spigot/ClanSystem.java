@@ -2,6 +2,7 @@ package de.codingair.clansystem.spigot;
 
 import de.codingair.clansystem.spigot.base.managers.ClanManager;
 import de.codingair.clansystem.spigot.base.utils.lang.Lang;
+import de.codingair.clansystem.spigot.extras.placeholderapi.PAPI;
 import de.codingair.clansystem.transfer.spigot.SpigotDataHandler;
 import de.codingair.codingapi.API;
 import de.codingair.codingapi.files.FileManager;
@@ -20,6 +21,7 @@ public class ClanSystem extends JavaPlugin {
 
         this.fileManager.loadFile("config");
         Lang.init();
+        PAPI.register();
         dataHandler.onEnable();
         clanManager.load();
     }
@@ -39,8 +41,8 @@ public class ClanSystem extends JavaPlugin {
         return dataHandler;
     }
 
-    public ClanManager getClanManager() {
-        return clanManager;
+    public static ClanManager man() {
+        return getInstance().clanManager;
     }
 
     public FileManager getFileManager() {

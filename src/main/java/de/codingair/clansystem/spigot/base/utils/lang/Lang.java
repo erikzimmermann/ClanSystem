@@ -3,10 +3,11 @@ package de.codingair.clansystem.spigot.base.utils.lang;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import de.codingair.clansystem.spigot.ClanSystem;
-import de.codingair.clansystem.spigot.base.utils.PAPI;
 import de.codingair.clansystem.spigot.base.utils.money.Bank;
+import de.codingair.clansystem.spigot.extras.placeholderapi.PAPI;
 import de.codingair.codingapi.files.ConfigFile;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,10 +20,14 @@ import java.util.concurrent.TimeUnit;
 public class Lang {
     private static final Cache<String, Boolean> EXIST = CacheBuilder.newBuilder().expireAfterAccess(5, TimeUnit.MINUTES).build();
     private static ConfigFile config = null;
+    private static ConfigFile language = null;
+    private static FileConfiguration lang = null;
 
     public static void init() {
         try {
             initPreDefinedLanguages(ClanSystem.getInstance());
+            lang(getCurrentLanguage());
+            lang = language.getConfig();
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -92,23 +97,27 @@ public class Lang {
     }
 
     public static String getPrefix() {
-        return get(null, "Prefix");
+        return get(null, "Prefix", s -> s.replace("%PREFIX%", ""));
     }
 
-    public static List<String> getStringList(String key) {
-        List<String> l = getLanguageFile(getCurrentLanguage()).getStringList(key);
+    public static List<String> getStringList(CommandSender sender, String key) {
+        List<String> l = lang.getStringList(key);
         List<String> prepared = new ArrayList<>();
 
         for(String s : l) {
             if(s == null) prepared.add(null);
-            else prepared.add(ChatColor.translateAlternateColorCodes('&', s));
+            else prepared.add(prepare(sender, s));
         }
 
         return prepared;
     }
 
-    public static String get(Player player, String key) {
-        String text = getLanguageFile(getCurrentLanguage()).getString(key);
+    public static String get(CommandSender sender, String key) {
+        return get(sender, key, null);
+    }
+
+    public static String get(CommandSender sender, String key, StringModifier modifier) {
+        String text = lang.getString(key);
 
         if(text == null) {
             if(key.equalsIgnoreCase("Yes") && get(null, "true") != null) {
@@ -122,23 +131,72 @@ public class Lang {
             throw new IllegalStateException("Unknown translation key: '" + key + "' >> Check " + getCurrentLanguage() + ".yml at '" + key + "'");
         }
 
-        return prepare(player, text);
+        if(modifier != null) text = modifier.modify(text);
+        return prepare(sender, text);
     }
 
-    private static String prepare(Player player, String s) {
+    private static String prepare(CommandSender sender, String s) {
         s = s.replace("\\n", "\n");
         s = ChatColor.translateAlternateColorCodes('&', s);
-        s = PAPI.convert(s, player);
+        if(sender instanceof Player) s = PAPI.convert(s, (Player) sender);
         s = s.replace("%ECO%", Bank.name());
+        s = s.replace("%PREFIX%", getPrefix());
         return s;
     }
 
-    public static void send(Player player, String s) {
-        player.sendMessage(getPrefix() + get(player, s));
+    private static String combine(String s) {
+        boolean noPrefix = s.startsWith("%NO_PREFIX%");
+        if(noPrefix) s = s.replace("%NO_PREFIX%", "").trim();
+
+        return (noPrefix ? "" : getPrefix()) + s;
     }
 
-    public static void send(Player player, String s, StringModifier modifier) {
-        player.sendMessage(getPrefix() + modifier.modify(get(player, s)));
+    public static void send(CommandSender sender, String s) {
+        sender.sendMessage(combine(get(sender, s)));
+    }
+
+    /**
+     * @param sender CommandSender, Text receiver
+     * @param s      Language tag in 'success' category
+     */
+    public static void suc(CommandSender sender, String s) {
+        suc(sender, s, null);
+    }
+
+    /**
+     * @param sender CommandSender, Text receiver
+     * @param s      Language tag in 'success' category
+     */
+    public static void suc(CommandSender sender, String s, StringModifier modifier) {
+        sender.sendMessage(combine(get(sender, "Exception." + s, modifier)));
+    }
+
+    /**
+     * @param sender CommandSender, Text receiver
+     * @param s      Language tag in 'exception' category
+     */
+    public static void exc(CommandSender sender, String s) {
+        exc(sender, s, null);
+    }
+
+    /**
+     * @param sender CommandSender, Text receiver
+     * @param s      Language tag in 'exception' category
+     */
+    public static void exc(CommandSender sender, String s, StringModifier modifier) {
+        sender.sendMessage(getPrefix() + get(sender, "Exception." + s, modifier));
+    }
+
+    /**
+     * @param sender CommandSender, Text receiver
+     * @param s      Language tag in 'command usage' category
+     */
+    public static void cu(CommandSender sender, String s) {
+        sender.sendMessage(combine(get(sender, "Command_Usage." + s)));
+    }
+
+    public static void send(CommandSender sender, String s, StringModifier modifier) {
+        sender.sendMessage(combine(modifier.modify(get(sender, s))));
     }
 
     private static FileConfiguration getConfig() {
@@ -154,20 +212,16 @@ public class Lang {
         return config.getConfig();
     }
 
-    private static FileConfiguration getLanguageFile(String langTag) {
-        try {
-            ConfigFile file = ClanSystem.getInstance().getFileManager().loadFile(langTag, "/Languages/", "languages/");
-            return file.getConfig();
-        } catch(Exception e) {
-            e.printStackTrace();
-            return null;
+    private static FileConfiguration lang(String langTag) {
+        if(language == null) {
+            try {
+                language = ClanSystem.getInstance().getFileManager().loadFile(langTag, "/Languages/", "languages/");
+            } catch(Exception e) {
+                e.printStackTrace();
+                return null;
+            }
         }
-    }
 
-    private static void save(Runnable task) {
-        ConfigFile file = ClanSystem.getInstance().getFileManager().getFile("Language");
-        file.loadConfig();
-        task.run();
-        file.saveConfig();
+        return language.getConfig();
     }
 }

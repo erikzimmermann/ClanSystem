@@ -7,13 +7,14 @@ import java.util.Set;
  * Unsorted permission tags.
  */
 public enum Permission {
-    INVITE,
     DEPOSIT,
     WITHDRAW,
+    INVITE,
     KICK,
     PROMOTE,
     DEMOTE,
     RENAME,
+    ALL(true),   //only for president
     TRANSFER(true),   //only for president
     DELETE(true);   //only for president
 

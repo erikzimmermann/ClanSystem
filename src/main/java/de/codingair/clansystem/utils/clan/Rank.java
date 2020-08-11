@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class Rank implements Serializable {
     private int id;
-    private int trace;  //permission successor, inheritance depth, -1 to ignore (-1 signalizes lowest rank).
+    private int trace;  //permission successor, inheritance depth, 0 to ignore (0 signalizes lowest rank).
     private String name;  //display name including '&'-color-codes
     private Set<Permission> permissions;
 

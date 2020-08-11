@@ -10,12 +10,12 @@ public class ClanListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
-        ClanSystem.getInstance().getClanManager().onJoin(e.getPlayer());
+        ClanSystem.man().onJoin(e.getPlayer());
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
-        ClanSystem.getInstance().getClanManager().onQuit(e.getPlayer());
+        ClanSystem.man().onQuit(e.getPlayer());
     }
 
 }

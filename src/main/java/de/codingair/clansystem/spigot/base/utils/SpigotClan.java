@@ -5,7 +5,6 @@ import de.codingair.clansystem.utils.clan.Rank;
 import de.codingair.clansystem.utils.clan.exceptions.*;
 import de.codingair.clansystem.utils.statistics.Statistic;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -17,7 +16,11 @@ public class SpigotClan extends Clan {
     public SpigotClan() {
     }
 
-    public SpigotClan(long id, String name, HashMap<Integer, Rank> ranks, HashMap<UUID, Rank> members, Rank president, HashMap<Statistic, Long> statistics, int level, float exp, int money) {
+    public SpigotClan(int id, String name, Player president, HashMap<Integer, Rank> ranks, Rank pres) {
+        super(id, name, president.getUniqueId(), ranks, pres);
+    }
+
+    public SpigotClan(int id, String name, HashMap<Integer, Rank> ranks, HashMap<UUID, Rank> members, Rank president, HashMap<Statistic, Long> statistics, int level, float exp, int money) {
         super(id, name, ranks, members, president, statistics, level, exp, money);
     }
 
