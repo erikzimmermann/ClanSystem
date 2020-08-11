@@ -97,7 +97,7 @@ public class Lang {
     }
 
     public static String getPrefix() {
-        return get(null, "Prefix", s -> s.replace("%PREFIX%", ""));
+        return get(null, "Prefix", s -> s.replace("%PREFIX%", "")); //replace %PREFIX% to avoid loop
     }
 
     public static List<String> getStringList(CommandSender sender, String key) {
@@ -120,6 +120,7 @@ public class Lang {
         String text = lang.getString(key);
 
         if(text == null) {
+            //special case: "yes" will be translated to "true" by default bukkit
             if(key.equalsIgnoreCase("Yes") && get(null, "true") != null) {
                 String s = get(null, "true");
                 return s.equalsIgnoreCase("true") ? "Yes" : s;
@@ -184,7 +185,7 @@ public class Lang {
      * @param s      Language tag in 'exception' category
      */
     public static void exc(CommandSender sender, String s, StringModifier modifier) {
-        sender.sendMessage(getPrefix() + get(sender, "Exception." + s, modifier));
+        sender.sendMessage(combine(get(sender, "Exception." + s, modifier)));
     }
 
     /**
